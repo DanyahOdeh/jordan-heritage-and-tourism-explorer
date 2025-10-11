@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap'); 
+
+/* إعداد عام */ 
+* { 
+    box-sizing: border-box; 
+} 
+
+body { 
+    margin: 0; 
+    font-family: 'Cairo', sans-serif; 
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: #fafafa; 
+} 
+
+/* خلفية الصفحة */ 
+.background-container { 
+    position: fixed; 
+    inset: 0; 
+    z-index: -1; 
+} 
+
+.background-image { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    filter: blur(3px) brightness(0.8); 
+} 
+
+/* الكرت الرئيسي */ 
+.form-card { 
+    background-color: rgba(255, 255, 255, 0.95); 
+    padding: 40px 35px; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    max-width: 450px; /* تصغير الكارد */ 
+    width: 90%; 
+    text-align: center; 
+} 
+
+/* الشعار */ 
+.logo { 
+    max-width: 120px; 
+} 
+
+.logo-text { 
+    font-size: 28px; 
+    font-weight: 600; 
+    margin: 10px 0 0; 
+    color: #333; 
+} 
+
+.logo-subtext { 
+    font-size: 14px; 
+    color: #777; 
+    margin-bottom: 20px; 
+} 
+
+/* العنوان */ 
+.form-title { 
+    margin-bottom: 25px; 
+    color: #444; 
+    font-size: 24px; 
+} 
+
+/* الحقول */ 
+.input-group { 
+    position: relative; 
+    margin-bottom: 20px; 
+} 
+
+.input-group i.icon { 
+    position: absolute; 
+    left: 12px; /* icon داخل الحقل على اليسار */ 
+    top: 50%; 
+    transform: translateY(-50%); 
+    color: #aaa; 
+    font-size: 16px; 
+} 
+
+.input-group input { 
+    display: block; 
+    width: 100%; 
+    padding: 12px 12px 12px 40px; /* مساحة للـ icon داخل الحقل */ 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    font-size: 15px; 
+    background-color: #f9f9f9; 
+} 
+
+.input-group input:focus { 
+    outline: none; 
+    border-color: #e8b923; 
+    background-color: #fff; 
+} 
+
+/* زر الدخول */ 
+.sign-up-button { 
+    width: 100%; 
+    padding: 12px; 
+    margin-top: 15px; /* إبعاد الزر عن الحقول */ 
+    background-color: #e67e22; 
+    border: none; 
+    border-radius: 8px; 
+    color: #111; 
+    font-weight: 600; 
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+} 
+
+.sign-up-button:hover { 
+    background-color: #e8b923;; 
+} 
+
+/* الرابط السفلي */ 
+.login-prompt { 
+    font-size: 14px; 
+    color: #555; 
+    margin-top: 20px; 
+} 
+
+.login-prompt a { 
+    color: #e67e22;; 
+    text-decoration: none; 
+} 
+
+.login-prompt a:hover { 
+    text-decoration: underline; 
+} 
+
+/* أيقونة العين */
+.input-group i.toggle-password {
+    position: absolute;
+    right: 12px; /* على اليمين */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.input-group input {
+    display: block;
+    width: 100%;
+    padding: 12px 40px 12px 40px; /* مساحة للقفل + العين */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #f9f9f9;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #e67e22;
+    background-color: #fff;
+}
+
+/* استجابة للشاشات الصغيرة */ 
+@media (max-width: 480px) { 
+    .form-card { 
+        padding: 30px 20px; 
+    } 
+
+    .input-group input { 
+        font-size: 14px; 
+        padding: 10px 10px 10px 35px; 
+    } 
+
+    .form-title { 
+        font-size: 20px; 
+    } 
+
+    .logo-text { 
+        font-size: 20px; 
+    } 
+
+    .logo-subtext { 
+        font-size: 12px; 
+    } 
+}
