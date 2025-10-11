@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="destination-detail">
+        <h1>{{ destination.name }}</h1>
+        
+        {% if destination.image %}
+            <img src="{{ destination.image.url }}" alt="Image of {{ destination.name }}" style="max-width: 100px;">
+        {% endif %}
+        
+        <h2>Overview</h2>
+        <p>{{ destination.description }}</p>
+
+        <h2>Details</h2>
+        <ul>
+            <li><strong>Category:</strong> {{ destination.get_category_display }}</li>
+            <li><strong>Location:</strong> {{ destination.location }}</li>
+            <li><strong>Activity Type:</strong> {{ destination.activity_type }}</li>
+            <li><strong>Added By:</strong> {{ destination.created_by.username }} on {{ destination.created_at|date:"F d, Y" }}</li>
+        </ul>
+        
+        {% comment %} 
+            **Next steps will involve adding the Review model logic here**
+            <h2>Reviews (Coming Soon)</h2>
+            {% endcomment %}
+        
+        <p><a href="{% url 'destination_list' %}">← Back to Destinations</a></p>
+    </div>
+{% endblock content %}
