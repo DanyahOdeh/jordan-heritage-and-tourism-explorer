@@ -34,3 +34,33 @@ def login(request):
             return render(request, 'login.html')
             
     return render(request, 'login.html')
+
+def signup(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if not (username and email and password and confirm_password):
+            messages.error(request, 'Please fill in all fields.')
+            return render(request, 'signup.html')
+
+        if password != confirm_password:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'signup.html')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already taken.')
+            return render(request, 'signup.html')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email already registered.')
+            return render(request, 'signup.html')
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        messages.success(request, 'Account created successfully! Please log in.')
+        return redirect('login')
+
+    return render(request, 'signup.html')
