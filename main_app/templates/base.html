@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
     <title>{% block title %}Jordan Heritage & Tourism Explorer{% endblock %}</title>
 
     
@@ -21,7 +22,7 @@
             <div class="logo">
                 <img src="{% static 'images/logo.png' %}" alt="Jordan Logo">
                 <div class="logo-text">
-                    JordanTourism &Heritage Explorer
+                    JordanTourism & Heritage Explorer
                 </div>
             </div>
 
@@ -33,8 +34,8 @@
             </nav>
 
             <div class="search-login">
-                <a href="#" class="btn-auth login">Login</a>
-                <a href="#" class="btn-auth signup">Signup</a>
+                <a href="{% url "login" %}" class="btn-auth login">Login</a>
+                <a href="{% url "signup" %}" class="btn-auth signup">Signup</a>
             </div>
         </div>
     </header>
