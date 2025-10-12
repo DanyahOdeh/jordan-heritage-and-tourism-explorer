@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>✨ Jordan Destinations List ✨</h1>
+    
+    <p>Browse all approved Historical, Nature, and Adventure sites in Jordan.</p>
+
+    {% if destinations %}
+        <div class="destination-grid">
+            {% for destination in destinations %}
+                <div class="destination-card">
+                    <h2>{{ destination.name }}</h2>
+                    <p><strong>Category:</strong> {{ destination.get_category_display }}</p>
+                    <p><strong>Location:</strong> {{ destination.location }}</p>
+                    {% if destination.image %}
+                        <img src="{{ destination.image.url }}" alt="Image of {{ destination.name }}" style="max-width: 100px;">
+                    {% endif %}
+                    
+                    <a href="{% url 'destination_detail' pk=destination.pk %}">View Details</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No approved destinations have been added yet.</p>
+    {% endif %}
+
+    <p><a href="{% url 'add_destination' %}">Can't find your favorite spot? Add a new one!</a></p>
+{% endblock content %}
