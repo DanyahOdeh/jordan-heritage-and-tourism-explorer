@@ -1,6 +1,21 @@
-<h1>Add a Destination</h1>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Submit</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Destination | Jordan Heritage & Tourism Explorer{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/destinations.css' %}">
+
+<section class="add-destination-section">
+  <div class="form-container">
+    <h1 class="form-title">Add a New Destination</h1>
+    <p class="form-subtitle">Share a hidden gem or a historical treasure of Jordan</p>
+
+    <form method="post" enctype="multipart/form-data" class="destination-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="submit-btn">Submit Destination</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
