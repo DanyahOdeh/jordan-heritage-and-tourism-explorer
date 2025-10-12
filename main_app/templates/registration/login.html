@@ -7,6 +7,8 @@
     <title>Login - Jordan Heritage & Tourism Explorer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    
+
 </head>
 <body>
     <div class="background-container">
@@ -22,38 +24,38 @@
 
         <h2 class="form-title">Login</h2>
 
-        <form method="post">
+        <!-- form مع action يوديك على home بعد تسجيل الدخول -->
+        <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="input-group">
                 <i class="fas fa-user icon"></i>
                 <input type="text" name="username" placeholder="Username" required>
             </div>
 
-    <div class="input-group">
-        <i class="fas fa-lock icon"></i>
-        <input type="password" name="password" placeholder="Password" id="password" required>
-        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-    </div>
+            <div class="input-group">
+                <i class="fas fa-lock icon"></i>
+                <input type="password" name="password" placeholder="Password" id="password" required>
+                <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+            </div>
 
-        <button type="submit" class="sign-up-button">Login</button>
+            <button type="submit" class="sign-up-button">Login</button>
         </form>
 
         <p class="login-prompt">
-            Don't have an account? <a href="#" class="link">Create one</a>
+            Don't have an account? <a href="{% url 'signup' %}" class="link">Create one</a>
         </p>
     </div>
 
     <script>
+    // toggle كلمة المرور
     const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#password');
 
     togglePassword.addEventListener('click', function () {
         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
         password.setAttribute('type', type);
-        this.classList.toggle('fa-eye-slash'); // لتغيير شكل العين عند الضغط
+        this.classList.toggle('fa-eye-slash'); // تغيير شكل العين عند الضغط
     });
     </script>
-
-
 </body>
 </html>
