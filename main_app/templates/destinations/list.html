@@ -1,28 +1,58 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Destinations | Jordan Heritage & Tourism Explorer{% endblock %}
 
 {% block content %}
-    <h1>✨ Jordan Destinations List ✨</h1>
-    
-    <p>Browse all approved Historical, Nature, and Adventure sites in Jordan.</p>
+<link rel="stylesheet" href="{% static 'css/destinations.css' %}">
 
+<!-- 🌅 Hero Section -->
+<section class="destination-hero">
+  <div class="hero-overlay">
+    <h1>Discover the Wonders of Jordan</h1>
+    <p>Explore breathtaking historical sites, natural landscapes, and thrilling adventures.</p>
+  </div>
+</section>
+
+<!-- 🔍 Search and Filter -->
+<div class="filters-container">
+  <form method="get" class="search-form">
+    <input type="text" name="q" placeholder="Search destinations..." value="{{ query }}">
+    <button type="submit"><i class="fa-solid fa-search"></i></button>
+  </form>
+
+  <div class="category-filters">
+    <a href="?category=all" class="filter-btn {% if selected_category == 'all' or not selected_category %}active{% endif %}">All</a>
+    <a href="?category=historical" class="filter-btn {% if selected_category == 'historical' %}active{% endif %}">Historical</a>
+    <a href="?category=nature" class="filter-btn {% if selected_category == 'nature' %}active{% endif %}">Nature</a>
+    <a href="?category=adventure" class="filter-btn {% if selected_category == 'adventure' %}active{% endif %}">Adventure</a>
+  </div>
+</div>
+
+
+<!-- 🧳 Destination Cards -->
+<section class="destination-list-section">
+  <div class="container">
     {% if destinations %}
-        <div class="destination-grid">
-            {% for destination in destinations %}
-                <div class="destination-card">
-                    <h2>{{ destination.name }}</h2>
-                    <p><strong>Category:</strong> {{ destination.get_category_display }}</p>
-                    <p><strong>Location:</strong> {{ destination.location }}</p>
-                    {% if destination.image %}
-                        <img src="{{ destination.image.url }}" alt="Image of {{ destination.name }}" style="max-width: 100px;">
-                    {% endif %}
-                    
-                    <a href="{% url 'destination_detail' pk=destination.pk %}">View Details</a>
-                </div>
-            {% endfor %}
-        </div>
+      <div class="destination-grid">
+        {% for destination in destinations %}
+          <div class="destination-card">
+            <div class="card-image">
+              <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
+            </div>
+            <div class="card-content">
+              <h3>{{ destination.name }}</h3>
+              <p class="category">{{ destination.get_category_display }}</p>
+              <p class="location"><i class="fa-solid fa-location-dot"></i> {{ destination.location }}</p>
+              <a href="{% url 'destination_detail' destination.pk %}" class="view-btn">View Details</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     {% else %}
-        <p>No approved destinations have been added yet.</p>
+      <p class="no-destinations">No destinations available yet.</p>
     {% endif %}
+  </div>
+</section>
 
-    <p><a href="{% url 'add_destination' %}">Can't find your favorite spot? Add a new one!</a></p>
-{% endblock content %}
+{% endblock %}
