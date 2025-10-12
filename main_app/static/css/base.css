@@ -1,252 +1,272 @@
-/* --- Global CSS Variables for Theming --- */
-:root {
-    --primary-color: #0d6efd;   /* لون أزرق جذاب للعناصر التفاعلية */
-    --secondary-color: #343a40; /* لون غامق للفوتر والخلفيات الداكنة */
-    --accent-color-historical: #a47b56; /* بني رملي للتراث */
-    --accent-color-nature: #4CAF50;    /* أخضر للطبيعة */
-    --accent-color-adventure: #00bcd4;  /* أزرق سماوي للمغامرة */
-    --background-color: #f0f2f5; /* خلفية الصفحة الرئيسية فاتحة جداً */
-    --header-bg-color: #ffffff; /* خلفية الهيدر بيضاء */
-    --text-color-dark: #212529; /* لون النص الغامق */
-    --text-color-light: #6c757d; /* لون النص الفاتح */
-    --border-color: #dee2e6;    /* لون حدود العناصر */
-    --font-family: 'Cairo', sans-serif;
-    --border-radius-sm: 5px;
-    --border-radius-md: 8px;
-    --shadow-light: 0 2px 5px rgba(0,0,0,0.05);
-    --shadow-medium: 0 4px 10px rgba(0,0,0,0.1);
-    --container-width: 1300px; /* زيادة عرض المحتوى قليلاً */
-}
-
-/* --- Base Reset & Body Styles (RTL First) --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: var(--font-family);
-    background-color: var(--background-color);
-    color: var(--text-color-dark);
-    line-height: 1.6;
-    direction: rtl; /* تفعيل اتجاه اليمين لليسار للصفحة بالكامل */
-    text-align: right; /* محاذاة النص لليمين افتراضياً */
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
 }
 
-a {
-    text-decoration: none;
-    color: var(--primary-color);
-    transition: color 0.3s ease;
+/* Navbar */
+.navbar-container {
+    background-color: rgb(246, 244, 242);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-a:hover {
-    color: darken(var(--primary-color), 10%); /* تأثير عند المرور */
-}
-
-ul {
-    list-style: none;
-}
-
-.container {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 0 25px; /* زيادة الهامش الداخلي للحاويات */
-}
-
-/* --- Main Header Styling --- */
-.main-header {
-    background-color: var(--header-bg-color);
-    box-shadow: var(--shadow-light);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-/* الجزء العلوي من الهيدر: اللوجو والبحث وأزرار المصادقة */
-.top-bar {
-    display: flex;
-    justify-content: space-between; /* توزيع العناصر على أقصى اليمين واليسار والمنتصف */
-    align-items: center;
-    padding: 15px 0; /* زيادة الهامش العلوي والسفلي */
-    border-bottom: 1px solid var(--border-color);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    color: var(--text-color-dark);
-    font-weight: 700; /* خط سميك */
-    font-size: 1.7rem; /* حجم خط كبير جداً للشعار النصي */
-    flex-shrink: 0;
-    /* مسافة من يسار الشاشة في RTL */
-    margin-left: 30px; 
-}
-
-.logo img {
-    /* *لوجو كبير وواضح* */
-    height: 120px; /* حجم كبير للصورة */
-    width: 150px;  /* حجم كبير للصورة */
-    /* border: 3px solid gray; إطار بلون أساسي */
-    border-radius: 50%;
-    object-fit: cover;
-    padding: 4px; /* مسافة داخل الإطار */
-    /* مسافة بين الصورة والنص في RTL */
-    margin-left: 20px; 
-    /* box-shadow: var(--shadow-light); */
-    transition: transform 0.3s ease;
-}
-
-.logo img:hover {
-    transform: scale(1.05); /* تكبير طفيف عند المرور */
-}
-
-.logo span {
-    /* المسافة بين الصورة والنص في RTL */
-    margin-right: 15px; 
-    line-height: 1; /* ضبط ارتفاع السطر للنص */
-}
-
-.search-form {
-    flex-grow: 1;
-    text-align: center;
-    max-width: 600px; /* عرض أقصى لشريط البحث */
-    margin: 0 40px; /* هامش من الجانبين */
-}
-
-.search-bar {
-    width: 100%;
-    padding: 14px 25px; /* حجم أكبر لحقل البحث */
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    font-size: 1.15rem; /* خط أكبر */
-    text-align: right; /* محاذاة النص لليمين */
-    background-color: var(--background-color);
-    transition: all 0.3s ease;
-}
-
-.search-bar:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-    outline: none;
-}
-
-.auth-links {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    /* مسافة من يمين الشاشة في RTL */
-    margin-right: 30px; 
-}
-
-.auth-links a {
-    /* الهامش بين الأزرار في RTL */
-    margin-right: 20px; 
-    padding: 10px 22px; /* حجم أكبر للأزرار */
-    border-radius: var(--border-radius-md);
-    font-weight: 700; /* خط سميك */
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.login-btn {
-    color: var(--primary-color);
-    background-color: transparent;
-    border: 2px solid var(--primary-color);
-}
-
-.login-btn:hover {
-    background-color: var(--primary-color);
-    color: #fff;
-}
-
-.signup-btn {
-    background-color: var(--primary-color);
-    color: #fff;
-    border: 2px solid var(--primary-color);
-}
-
-.signup-btn:hover {
-    background-color: darken(var(--primary-color), 10%);
-    border-color: darken(var(--primary-color), 10%);
-}
-
-/* --- New Main Navigation Styling --- */
-.main-nav {
-    background-color: var(--header-bg-color); /* خلفية بيضاء لشريط التنقل */
-    padding: 15px 0; /* زيادة الهامش العلوي والسفلي */
-    box-shadow: var(--shadow-light); /* ظل خفيف لإبرازه */
-    border-top: none; /* إزالة الحد العلوي */
-    margin-bottom: 20px; /* مسافة بين الـ nav و بقية المحتوى */
-}
-
-.main-nav ul {
-    display: flex;
-    justify-content: center; /* توسيط الروابط */
-    /* عكس الترتيب ليتناسب مع RTL: HOME أولاً من اليمين */
-    flex-direction: row-reverse; 
-}
-
-.main-nav ul li a {
-    padding: 12px 28px; /* حجم أكبر للروابط كأزرار */
-    color: var(--text-color-dark); /* لون نص غامق */
-    font-weight: 600; /* خط شبه سميك */
-    font-size: 1.1rem; /* حجم خط أكبر */
-    border-radius: var(--border-radius-md);
-    transition: all 0.3s ease;
-    position: relative; /* لتمكين استخدام الـ pseudo-element */
-    overflow: hidden; /* لإخفاء أي جزء زائد من التأثير */
-}
-
-.main-nav ul li a:hover {
-    color: var(--primary-color); /* يتغير اللون عند المرور */
-    background-color: var(--background-color); /* خلفية خفيفة عند المرور */
-}
-
-/* تأثير الخط السفلي عند المرور أو للصفحة النشطة */
-.main-nav ul li a::after {
-    content: '';
-    position: absolute;
-    bottom: 0; /* يبدأ من الأسفل */
-    right: 0; /* يبدأ من اليمين في RTL */
-    width: 0;
-    height: 4px; /* سمك الخط */
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
-    border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm); /* زوايا مستديرة للخط */
-}
-
-.main-nav ul li a:hover::after,
-.main-nav ul li a.active::after { /* يمكنك إضافة كلاس .active للصفحة الحالية */
-    width: 100%; /* يمتد الخط على عرض الرابط بالكامل */
-    right: 0; /* يتأكد أنه يبدأ من اليمين */
-}
-
-
-/* --- Main Content (لا تغيير هنا، ستضاف المحتويات لاحقاً) --- */
-main {
-    padding: 50px 0; /* مسافة أكبر للمحتوى */
-}
-
-/* --- Footer Styling --- */
-.main-footer {
-    background-color: var(--secondary-color);
-    color: #e9ecef; /* لون فاتح للنص في الفوتر */
-    padding: 25px 0; /* زيادة حجم الفوتر */
-    text-align: center;
-    font-size: 0.95rem;
-}
-
-.main-footer .container {
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 40px;
+    direction: ltr; 
 }
 
-.main-footer a {
-    color: #e9ecef;
+
+.logo {
+    display: flex;
+   
+    align-items: center;
+    gap: 10px;
+   
+    order: 1;
+}
+
+.logo img {
+    width: 60px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.logo-text {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #0a0a09;
+    font-weight: 150;
+    line-height: 1;
+}
+
+
+.nav-links {
+    order: 2;
+    text-align: center;
+}
+
+.nav-links a {
     margin: 0 12px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
 }
 
-.main-footer a:hover {
-    color: var(--primary-color);
+.nav-links a.active {
+    color: #e67e22;
+    font-weight: bold;
+}
+
+
+.search-login {
+    display: flex;
+    gap: 10px;
+    order: 3;
+}
+
+.search-login .btn-auth {
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-auth.login {
+    border: 1px solid #e67e22;
+    color: #e67e22;
+}
+
+.btn-auth.signup {
+    background-color: #e67e22;
+    color: white;
+}
+
+
+/* Hero Section */
+.hero-section {
+    background-image: url("/static/images/heroo.jpg");
+    background-size: cover;      
+    background-position: center;  
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.main-cta-btn {
+    background-color: #e67d22;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Featured Section */
+.featured-section {
+    padding: 50px 80px;
+    background-color: #fff;
+}
+
+.category-filters {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    border: none;
+    background-color: #f0f0f0;
+    margin: 0 10px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.featured-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.view-btn {
+    background-color: #e67e22;
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.add-new-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.add-new-btn {
+    background-color: #e67e22;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+}
+.about-jordan {
+    background-color: #ffffff;
+    padding: 60px 100px;
+    margin-top: 80px;
+    margin-bottom: 60px;
+    border-top: 4px solid #e67e22;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h2 {
+    font-size: 2.3rem;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.about-content p {
+    font-size: 1.15rem;
+    color: #444;
+    line-height: 1.9;
+    text-align: justify;
+    margin-bottom: 20px;
+    font-family: 'Cairo', sans-serif;
+}
+
+    .tourism-section {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .tourism-section h1 {
+      color: #e67e22;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .tourism-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      text-align: justify;
+    }
+
+    .tourism-counters {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .counter {
+      background-color: #e67e22;
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 20px 30px;
+      flex: 1 1 200px;
+      transition: transform 0.3s;
+    }
+
+    .counter:hover {
+      transform: scale(1.05);
+    }
+
+    .counter .number {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    .counter p {
+      margin-top: 5px;
+      font-size: 1rem;
+    }
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-links a {
+    color: #f1f1f1;
+    text-decoration: none;
+    margin: 0 10px;
 }
