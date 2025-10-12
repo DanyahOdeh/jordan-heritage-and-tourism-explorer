@@ -85,6 +85,19 @@ body {
     color: white;
 }
 
+.btn-logout {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+.btn-logout:hover {
+    text-decoration: underline;
+}
+
+
 
 /* Hero Section */
 .hero-section {
