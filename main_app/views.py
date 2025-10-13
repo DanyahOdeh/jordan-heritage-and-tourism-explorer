@@ -7,38 +7,33 @@ from django.contrib import messages
 from django.contrib.auth.models import User 
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib import messages
+from django.shortcuts import redirect, render
+
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
 
- 
-
 def login(request):
     if request.method == 'POST':
-
-
         username = request.POST.get('username')
-        email = request.POST.get('email')
         password = request.POST.get('password')
-        terms_accepted = request.POST.get('terms_accepted')
 
-        if not (username and email and password and terms_accepted):
-            messages.error(request, 'Please fill in all fields and accept the terms.')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            next_url = request.GET.get('next')
+            if next_url:
+                return redirect(next_url)
+            return redirect('user_dashboard')
+        else:
+            messages.error(request, 'Invalid username or password.')
             return render(request, 'login.html')
 
-        try:
-            user = User.objects.create_user(username=username, email=email, password=password)
-            user.save()
-            messages.success(request, 'Account created successfully! Please log in.')
-            return redirect('login_url_name') 
-            return redirect('login_url_name') 
-        except Exception as e:
-            messages.error(request, f'An error occurred: {e}')
-            
-            return render(request, 'user_dashboard')
-            
     return render(request, 'login.html')
+
 
 def signup(request):
     if request.method == 'POST':
@@ -73,33 +68,28 @@ def signup(request):
 def about(request):
       return render(request, 'about.html')
 
-def about(request):
-      return render(request, 'about.html')
-
 def destination_list(request):
     destinations = Destination.objects.filter(status='approved')
     return render(request, 'destinations/list.html',{'destinations':destinations})
-
 
 def destination_detail(request, pk):
     destination = get_object_or_404(Destination, pk=pk)
     destination = get_object_or_404(Destination, pk=pk)
     return render(request, 'destinations/detail.html',{'destination': destination})
 
-# 
 # @login_required
 def add_destination(request):
     if request.method == 'POST':
         form = DestinationForm(request.POST, request.FILES)
         if form.is_valid():
             destination = form.save(commit = False)
-            #destination.created_by = request.user
-            #destination.created_by = request.user
+            # destination.created_by = request.user
             destination.save()
             return redirect('destination_list')
     else:
             form = DestinationForm()
     return render(request, 'destinations/add.html',{'form': form})
+
 
 def destination_list(request):
     query = request.GET.get('q', '')
@@ -141,6 +131,3 @@ def user_dashboard(request):
         'latest_destinations': latest_destinations,
     }
     return render(request, 'userdashboard.html', context)
-
-
-
