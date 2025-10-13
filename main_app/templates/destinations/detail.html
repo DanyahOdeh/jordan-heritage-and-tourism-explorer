@@ -1,29 +1,54 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ destination.name }} | Jordan Heritage & Tourism Explorer{% endblock %}
 
 {% block content %}
-    <div class="destination-detail">
-        <h1>{{ destination.name }}</h1>
-        
-        {% if destination.image %}
-            <img src="{{ destination.image.url }}" alt="Image of {{ destination.name }}" style="max-width: 100px;">
-        {% endif %}
-        
-        <h2>Overview</h2>
-        <p>{{ destination.description }}</p>
+<link rel="stylesheet" href="{% static 'css/destinations.css' %}">
 
-        <h2>Details</h2>
-        <ul>
-            <li><strong>Category:</strong> {{ destination.get_category_display }}</li>
-            <li><strong>Location:</strong> {{ destination.location }}</li>
-            <li><strong>Activity Type:</strong> {{ destination.activity_type }}</li>
-            <li><strong>Added By:</strong> {{ destination.created_by.username }} on {{ destination.created_at|date:"F d, Y" }}</li>
-        </ul>
-        
-        {% comment %} 
-            **Next steps will involve adding the Review model logic here**
-            <h2>Reviews (Coming Soon)</h2>
-            {% endcomment %}
-        
-        <p><a href="{% url 'destination_list' %}">← Back to Destinations</a></p>
+<section class="destination-detail-section">
+
+  <!-- HEADER -->
+  <div class="destination-header">
+    <h1>{{ destination.name }}</h1>
+    <span class="category-tag">{{ destination.get_category_display }}</span>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="destination-content">
+
+    <!-- USER IMAGE -->
+    <div class="destination-image">
+      <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
     </div>
-{% endblock content %}
+
+    <div class="destination-body">
+      <!-- STORY -->
+      <div class="destination-story">
+        <h2>Discover {{ destination.name }}</h2>
+        <p>{{ destination.description }}</p>
+      </div>
+
+      <!-- INFO CARD -->
+      <div class="destination-info-card">
+        <h3>Destination Info</h3>
+        <ul>
+          <li><i class="fa-solid fa-location-dot"></i><strong>Location:</strong> {{ destination.location }}</li>
+          <li><i class="fa-solid fa-person-hiking"></i><strong>Activity Type:</strong> {{ destination.activity_type }}</li>
+          <li><i class="fa-solid fa-layer-group"></i><strong>Category:</strong> {{ destination.get_category_display }}</li>
+          <li><i class="fa-solid fa-calendar-days"></i><strong>Added on:</strong> {{ destination.created_at|date:"F d, Y" }}</li>
+          <li><i class="fa-solid fa-user"></i><strong>Published by:</strong> {{ destination.created_by.username }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="back-button-container">
+      <a href="{% url 'destination_list' %}" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Destinations
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

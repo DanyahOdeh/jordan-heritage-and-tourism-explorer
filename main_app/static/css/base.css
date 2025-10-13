@@ -1,13 +1,15 @@
+/* Body */
 body {
     margin: 0;
     font-family: 'Cairo', sans-serif;
-    background-color: #f5f5f5;
+    background-color: #fefbf7; 
     color: #333;
+    text-align: center; /* النصوص في الوسط بشكل افتراضي */
 }
 
 /* Navbar Container */
 .navbar-container {
-    background-color: rgb(246, 244, 242);
+    background-color: #ffffff; 
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     width: 100%; 
 }
@@ -21,7 +23,6 @@ body {
     margin: 0 auto; 
     direction: ltr; 
 }
-
 /* Logo */
 .logo {
     display: flex;
@@ -46,7 +47,6 @@ body {
     line-height: 1;
     white-space: nowrap; 
 }
-
 /* Navigation Links */
 .nav-links {
     display: flex;
@@ -67,10 +67,9 @@ body {
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: #e67e22;
+    color: #e67e22; 
     font-weight: bold;
 }
-
 /* Search and Login/Signup/Profile/Logout Buttons */
 .search-login {
     display: flex;
@@ -137,8 +136,6 @@ body {
     background-color: #d1701e; 
     color: white;
 }
-
-
 .hero-section {
     background-image: url("/static/images/heroo.jpg");
     background-size: cover;
@@ -148,95 +145,103 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
+    color: white;
     text-align: center;
+    color: white;
 }
 
 
-.hero-content h1 {
-    font-size: 35px;
-    margin-bottom: 20px;
+.hero-section h1 {
+    font-size: 3rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    margin: 0;
 }
 
 .main-cta-btn {
-    background-color: #e67d22;
+    background-color: #e67e22;
     color: white;
     padding: 12px 30px;
     border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
+    transition: background 0.3s;
+}
+.main-cta-btn:hover {
+    background-color: #d35400;
 }
 
-/* Featured Section */
-.featured-section {
-    padding: 50px 80px;
-    background-color: #fff;
-}
-
-.category-filters {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.filter-btn {
-    border: none;
-    background-color: #f0f0f0;
-    margin: 0 10px;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-}
-
-.featured-items-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+/* Cards Section */
+.cards {
+    display: flex;
+    justify-content: center; /* في الوسط */
     gap: 20px;
+    flex-wrap: wrap; /* تتحرك للأسفل على الشاشات الصغيرة */
+    text-align: center; /* النصوص داخل كل بطاقة في الوسط */
 }
 
-.card {
-    background: white;
+.cards .card {
+    background: #ffffff;
     border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 25px 20px;
+    width: 250px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cards .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.cards .card i {
+    font-size: 2rem;
+    color: #e67e22;
+    margin-bottom: 15px;
+}
+
+.cards .card p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Stats Section */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
     text-align: center;
-    padding-bottom: 15px;
 }
 
-.card-image img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.view-btn {
+.stats .stat {
     background-color: #e67e22;
-    color: white;
-    text-decoration: none;
-    padding: 8px 20px;
-    border-radius: 20px;
-    display: inline-block;
-    margin-top: 10px;
+    color: #fff;
+    border-radius: 10px;
+    padding: 25px 20px;
+    width: 180px;
+    transition: transform 0.3s;
 }
 
-.add-new-container {
-    text-align: center;
-    margin-top: 50px;
+.stats .stat:hover {
+    transform: scale(1.05);
 }
 
-.add-new-btn {
-    background-color: #e67e22;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 25px;
-    text-decoration: none;
+.stats .stat h3 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.stats .stat p {
+    margin-top: 5px;
+    font-size: 1rem;
 }
 
 /* About Jordan Section */
 .about-jordan {
     background-color: #ffffff;
-    padding: 60px 100px;
-    margin-top: 80px;
-    margin-bottom: 60px;
-    border-top: 4px solid #e67e22;
+    padding: 60px 50px;
+    margin: 40px auto;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
@@ -244,16 +249,16 @@ body {
     margin-right: auto;
 }
 
-.about-content h2 {
+.about-content h2,
+.tourism-section h1 {
     font-size: 2.3rem;
-    color: #333;
+    color: #e67e22;
     font-weight: 700;
     margin-bottom: 25px;
-    text-align: center;
-    letter-spacing: 1px;
 }
 
-.about-content p {
+.about-content p,
+.tourism-section p {
     font-size: 1.15rem;
     color: #444;
     line-height: 1.9;
@@ -294,14 +299,14 @@ body {
     margin-top: 20px;
 }
 
-.counter {
-    background-color: #e67e22;
-    color: #ffffff;
-    border-radius: 10px;
-    padding: 20px 30px;
-    flex: 1 1 200px;
-    transition: transform 0.3s;
-}
+    .counter {
+      background-color: #e67e22;
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 20px 30px;
+      flex: 1 1 200px;
+      transition: transform 0.3s;
+    }
 
 .counter:hover {
     transform: scale(1.05);
@@ -312,11 +317,10 @@ body {
     font-weight: bold;
 }
 
-.counter p {
-    margin-top: 5px;
-    font-size: 1rem;
-}
-
+    .counter p {
+      margin-top: 5px;
+      font-size: 1rem;
+    }
 /* Footer */
 footer {
     background-color: #333;

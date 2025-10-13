@@ -1,0 +1,499 @@
+/* =============================
+   HERO SECTION (List Page)
+============================= */
+.destination-hero {
+  background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45)),
+              url("/static/images/jordan-landscape1.jpg") no-repeat center top;
+  background-size: cover;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+.hero-overlay {
+  max-width: 700px;
+  padding: 0 20px;
+  animation: fadeIn 1.2s ease;
+}
+
+.hero-overlay h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hero-overlay p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* =============================
+   SEARCH & FILTER
+============================= */
+.filters-container {
+  background-color: #fff;
+  padding: 20px 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-form input {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  width: 250px;
+  transition: 0.3s;
+}
+
+.search-form input:focus {
+  border-color: #e67e22;
+  outline: none;
+}
+
+.search-form button {
+  background: #e67e22;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-form button:hover {
+  background: #cf6f18;
+}
+
+/* Category Filters */
+.category-filters {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.category-filters a {
+  text-decoration: none;
+  border: 1px solid #e67e22;
+  color: #e67e22;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.category-filters a:hover,
+.category-filters a.active {
+  background-color: #e67e22;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* =============================
+   DESTINATION LIST PAGE
+============================= */
+.destination-list-section {
+  padding: 60px 80px;
+  background-color: #fff;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #e67e22;
+  margin-bottom: 40px;
+}
+
+/* Destination Cards */
+.destination-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 25px;
+}
+
+.destination-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.destination-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.destination-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+  text-align: center;
+}
+
+.card-content h3 {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.card-content .category {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.card-content .location {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.no-destinations {
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
+
+.destination-card a {
+  display: inline-block;
+  background-color: #e67e22;
+  color: #fff !important;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+  box-shadow: 0 3px 8px rgba(230, 126, 34, 0.3);
+}
+
+.destination-card a:hover {
+  background-color: #cf6f18;
+  box-shadow: 0 5px 12px rgba(230, 126, 34, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================
+   ADD DESTINATION PAGE
+============================= */
+.add-destination-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
+              url("/static/images/add-destination-bg.jpg") no-repeat center center;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  border-radius: 18px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 750px;
+  padding: 50px 45px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.form-title {
+  font-size: 2rem;
+  color: #e67e22;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.form-subtitle {
+  color: #555;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.destination-form p {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.destination-form label {
+  font-weight: 600;
+  display: block;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.destination-form input[type="text"],
+.destination-form input[type="file"],
+.destination-form textarea,
+.destination-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.destination-form input:focus,
+.destination-form textarea:focus,
+.destination-form select:focus {
+  border-color: #e67e22;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+}
+
+.submit-btn {
+  background-color: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(230, 126, 34, 0.35);
+}
+
+.submit-btn:hover {
+  background-color: #cf6f18;
+  box-shadow: 0 6px 18px rgba(230, 126, 34, 0.45);
+}
+/* =============================
+   DESTINATION DETAIL 
+============================= */
+.destination-detail-section {
+  background-color: #f5f3ef; /* soft beige tone for warmth */
+  padding-bottom: 70px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* HEADER */
+.destination-header {
+  background: #fff;
+  text-align: center;
+  padding: 60px 20px 40px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.destination-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.destination-header .category-tag {
+  background-color: #e67e22;
+  color: #fff;
+  padding: 7px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-block;
+  letter-spacing: 0.3px;
+}
+
+/* CONTENT SECTION */
+.destination-content {
+  padding: 70px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+/* IMAGE CARD */
+.destination-image {
+  width: 100%;
+  max-width: 950px;
+  height: 450px; /* fixed height for all images */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.destination-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures proper scaling for any image dimension */
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.destination-image img:hover {
+  transform: scale(1.03);
+  filter: brightness(1.05);
+}
+
+/* MAIN BODY GRID */
+.destination-body {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 60px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* STORY SECTION */
+.destination-story {
+  background: #fff;
+  padding: 45px 40px;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  border-left: 6px solid #e67e22;
+}
+
+.destination-story h2 {
+  color: #e67e22;
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.destination-story p {
+  color: #333;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+/* INFO CARD */
+.destination-info-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  padding: 35px 30px;
+  height: fit-content;
+  border-top: 6px solid #e67e22;
+}
+
+.destination-info-card h3 {
+  color: #e67e22;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.destination-info-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.destination-info-card li {
+  margin-bottom: 14px;
+  font-size: 1rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+}
+
+.destination-info-card li i {
+  color: #e67e22;
+  margin-right: 10px;
+  font-size: 1.05rem;
+}
+
+/* BACK BUTTON */
+.back-button-container {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.back-btn {
+  display: inline-block;
+  background-color: #e67e22;
+  color: #fff;
+  padding: 13px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  box-shadow: 0 6px 16px rgba(230,126,34,0.3);
+}
+
+.back-btn:hover {
+  background-color: #cf6f18;
+  box-shadow: 0 8px 22px rgba(230,126,34,0.4);
+}
+
+/* =============================
+RESPONSIVENESS
+============================= */
+@media (max-width: 1024px) {
+  .destination-hero, .destination-hero-banner { height: 55vh; }
+  .hero-overlay h1, .hero-text h1 { font-size: 2rem; }
+  .form-container { max-width: 600px; padding: 35px 30px; }
+}
+
+
+@media (max-width: 992px) {
+  .destination-content {
+    padding: 50px 30px;
+  }
+  .destination-body {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .destination-image {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .destination-hero, .destination-hero-banner { height: 50vh; }
+  .filters-container { flex-direction: column; align-items: flex-start; gap: 15px; padding: 20px; }
+  .destination-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-container { max-width: 90%; padding: 30px 25px; }
+}
+
+@media (max-width: 576px) {
+  .destination-hero, .destination-hero-banner { height: 40vh; }
+  .destination-grid { grid-template-columns: 1fr; }
+  .form-container { padding: 25px 20px; }
+  .submit-btn { width: 100%; }
+}

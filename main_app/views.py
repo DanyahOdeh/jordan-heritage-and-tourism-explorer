@@ -17,6 +17,7 @@ def home(request):
 def login(request):
     if request.method == 'POST':
 
+
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -30,6 +31,7 @@ def login(request):
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
             messages.success(request, 'Account created successfully! Please log in.')
+            return redirect('login_url_name') 
             return redirect('login_url_name') 
         except Exception as e:
             messages.error(request, f'An error occurred: {e}')
@@ -71,15 +73,20 @@ def signup(request):
 def about(request):
       return render(request, 'about.html')
 
+def about(request):
+      return render(request, 'about.html')
+
 def destination_list(request):
     destinations = Destination.objects.filter(status='approved')
     return render(request, 'destinations/list.html',{'destinations':destinations})
+
 
 def destination_detail(request, pk):
     destination = get_object_or_404(Destination, pk=pk)
     destination = get_object_or_404(Destination, pk=pk)
     return render(request, 'destinations/detail.html',{'destination': destination})
 
+# 
 # @login_required
 def add_destination(request):
     if request.method == 'POST':
@@ -87,8 +94,10 @@ def add_destination(request):
         if form.is_valid():
             destination = form.save(commit = False)
             #destination.created_by = request.user
+            #destination.created_by = request.user
             destination.save()
             return redirect('destination_list')
+    else:
     else:
             form = DestinationForm()
     return render(request, 'destinations/add.html',{'form': form})
