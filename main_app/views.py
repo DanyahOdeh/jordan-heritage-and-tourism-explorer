@@ -68,6 +68,9 @@ def signup(request):
 
     return render(request, 'signup.html')
 
+def about(request):
+      return render(request, 'about.html')
+
 def destination_list(request):
     destinations = Destination.objects.filter(status='approved')
     return render(request, 'destinations/list.html',{'destinations':destinations})

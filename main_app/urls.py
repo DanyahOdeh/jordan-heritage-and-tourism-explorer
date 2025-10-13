@@ -5,11 +5,13 @@ urlpatterns = [
     # Routes will be added here
      path('', views.home, name='home'),
      
+
     # Destination URLs
     path('destinations/', views.destination_list, name='destination_list'),
     path('destinations/add/', views.add_destination, name='add_destination'),
     path('destinations/<int:pk>/', views.destination_detail, name='destination_detail'), 
-     path('login/', views.login, name='login'),
-     path('signup/', views.signup, name='signup'),
+    path('login/', views.login, name='login'),
+    path('signup/', views.signup, name='signup'),
+    path('about/', views.about, name='about'),
     #  path('accounts/signup/', views.signup, name='signup'),
 ]

@@ -30,7 +30,7 @@
                 <a href="{% url 'home' %}" class="active">Home</a>
                 <a href="#">Destinations</a>
                 <a href="#">Add New</a>
-                <a href="#">About</a>
+                <a href="{% url 'about' %}">About</a>
             </nav>
 
             <div class="search-login">
@@ -41,16 +41,20 @@
     </header>
 
     {% block content %}{% endblock %}
+   <script>
+  const links = document.querySelectorAll('nav a');
+  const current = window.location.pathname;
+
+  links.forEach(link => {
+    if (link.getAttribute('href') === current) {
+      link.classList.add('active');
+    }
+  });
+   </script>
 
    
     <footer>
-        <div class="footer-links">
-            <a href="#">About</a> |
-            <a href="#">Contact</a> |
-            <a href="#">Privacy</a>
-        </div>
-        
-   
+      
 
         <p>© 2025 Jordan Heritage & Tourism Explorer</p>
        
