@@ -7,40 +7,48 @@
 <link rel="stylesheet" href="{% static 'css/destinations.css' %}">
 
 <section class="destination-detail-section">
-  <div class="detail-hero">
-    <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
-    <div class="hero-overlay">
-      <h1>{{ destination.name }}</h1>
-      <p class="category">{{ destination.get_category_display }}</p>
-    </div>
+
+  <!-- HEADER -->
+  <div class="destination-header">
+    <h1>{{ destination.name }}</h1>
+    <span class="category-tag">{{ destination.get_category_display }}</span>
   </div>
 
-  <div class="destination-info">
-    <div class="detail-card">
-      <h2>About {{ destination.name }}</h2>
-      <p class="description">{{ destination.description }}</p>
+  <!-- CONTENT -->
+  <div class="destination-content">
 
-      <div class="info-grid">
-        <div class="info-item">
-          <i class="fa-solid fa-location-dot"></i>
-          <span><strong>Location:</strong> {{ destination.location }}</span>
-        </div>
+    <!-- USER IMAGE -->
+    <div class="destination-image">
+      <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
+    </div>
 
-        <div class="info-item">
-          <i class="fa-solid fa-person-hiking"></i>
-          <span><strong>Activity Type:</strong> {{ destination.activity_type }}</span>
-        </div>
-
-        <div class="info-item">
-          <i class="fa-regular fa-calendar"></i>
-          <span><strong>Added on:</strong> {{ destination.created_at|date:"F j, Y" }}</span>
-        </div>
+    <div class="destination-body">
+      <!-- STORY -->
+      <div class="destination-story">
+        <h2>Discover {{ destination.name }}</h2>
+        <p>{{ destination.description }}</p>
       </div>
 
+      <!-- INFO CARD -->
+      <div class="destination-info-card">
+        <h3>Destination Info</h3>
+        <ul>
+          <li><i class="fa-solid fa-location-dot"></i><strong>Location:</strong> {{ destination.location }}</li>
+          <li><i class="fa-solid fa-person-hiking"></i><strong>Activity Type:</strong> {{ destination.activity_type }}</li>
+          <li><i class="fa-solid fa-layer-group"></i><strong>Category:</strong> {{ destination.get_category_display }}</li>
+          <li><i class="fa-solid fa-calendar-days"></i><strong>Added on:</strong> {{ destination.created_at|date:"F d, Y" }}</li>
+          <li><i class="fa-solid fa-user"></i><strong>Published by:</strong> {{ destination.created_by.username }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="back-button-container">
       <a href="{% url 'destination_list' %}" class="back-btn">
         <i class="fa-solid fa-arrow-left"></i> Back to Destinations
       </a>
     </div>
+
   </div>
 </section>
+
 {% endblock %}
