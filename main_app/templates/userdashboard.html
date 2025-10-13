@@ -1,0 +1,59 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block title %}Dashboard | Jordan Heritage & Tourism Explorer{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock head %}
+
+
+{% block content %}
+    
+    <div class="dashboard-wrapper">
+        
+        <main class="main-content">
+            <h1>Dashboard</h1>
+            <p class="welcome-message">Welcome back, {{ user.username }}!</p>
+
+            <div class="stat-cards-grid">
+                
+                <div class="stat-card">
+                    <div class="number">{{ total_destinations_count }}</div>
+                    <p>Destinations Added</p>
+                    <p style="font-size: 0.8rem;">{{ approved_destinations_count }} Approved, {{ pending_destinations_count }} Pending</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="number">0</div> 
+                    <p>Reviews & Comments</p>
+                </div>
+                
+                <a href="{% url 'add_destination' %}" class="stat-card add-destination-card" style="text-decoration: none;">
+                    <div class="number">+</div>
+                    <p>Add New Destination</p>
+                </a>
+            </div>
+
+            <section class="latest-activity">
+                <h3>Latest Added Destinations</h3>
+                
+                {% for destination in latest_destinations %}
+                    <div class="activity-item">
+                        <img src="{% if destination.image %}{{ destination.image.url }}{% else %}{% static 'images/default_destination.png' %}{% endif %}" alt="{{ destination.name }} Image">
+                        <div class="activity-details">
+                            <strong><a href="{% url 'destination_detail' pk=destination.pk %}" style="color: inherit; text-decoration: none;">{{ destination.name }}</a></strong>
+                            <p>Category: {{ destination.get_category_display }} | Added On: {{ destination.created_at|date:"M d, Y" }}</p>
+                            <span class="status-badge {{ destination.status }}">{{ destination.get_status_display }}</span>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>You haven't added any destinations yet. Use the "Add New Destination" card above to share your favorite spot!</p>
+                {% endfor %}
+            </section>
+        </main>
+    </div>
+
+{% endblock content %}
