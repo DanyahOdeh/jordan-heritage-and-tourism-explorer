@@ -2,20 +2,21 @@ from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import DestinationForm
 from .models import Destination
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User 
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.models import User # إذا كنت ستستخدم نظام المستخدمين المدمج في Django
-from django.contrib.auth.forms import UserCreationForm # بديل أبسط
+ 
 
 def login(request):
     if request.method == 'POST':
-        # هنا يمكنك معالجة بيانات النموذج
-        # مثال بسيط لإنشاء مستخدم (للتوضيح فقط، استخدم نماذج Django forms.py للإنتاج)
+
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -26,15 +27,14 @@ def login(request):
             return render(request, 'login.html')
 
         try:
-            # مثال لإنشاء مستخدم جديد
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
             messages.success(request, 'Account created successfully! Please log in.')
-            return redirect('login_url_name') # قم بتوجيه المستخدم لصفحة تسجيل الدخول
+            return redirect('login_url_name') 
         except Exception as e:
             messages.error(request, f'An error occurred: {e}')
-            # يمكنك إضافة معالجة للأخطاء مثل اسم المستخدم موجود مسبقًا
-            return render(request, 'login.html')
+            
+            return render(request, 'user_dashboard')
             
     return render(request, 'login.html')
 
@@ -63,29 +63,76 @@ def signup(request):
 
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
-        messages.success(request, 'Account created successfully! Please log in.')
-        return redirect('home')
+        auth_login(request, user)
+        return redirect('user_dashboard')
 
     return render(request, 'signup.html')
+
+def about(request):
+      return render(request, 'about.html')
 
 def destination_list(request):
     destinations = Destination.objects.filter(status='approved')
     return render(request, 'destinations/list.html',{'destinations':destinations})
+
 def destination_detail(request, pk):
     destination = get_object_or_404(Destination, pk=pk)
     destination = get_object_or_404(Destination, pk=pk)
     return render(request, 'destinations/detail.html',{'destination': destination})
-@login_required
+
+# @login_required
 def add_destination(request):
     if request.method == 'POST':
         form = DestinationForm(request.POST, request.FILES)
         if form.is_valid():
             destination = form.save(commit = False)
-            destination.created_by = request.user 
+            #destination.created_by = request.user
             destination.save()
             return redirect('destination_list')
-        else:
+    else:
             form = DestinationForm()
+    return render(request, 'destinations/add.html',{'form': form})
 
-        return render(request, 'destinations/add.html',{'form': form})
-        
+def destination_list(request):
+    query = request.GET.get('q', '')
+    category = request.GET.get('category', '')
+
+    destinations = Destination.objects.filter(status='approved')
+
+    if query:
+        destinations = destinations.filter(name__icontains=query)
+
+    if category and category != 'all':
+        destinations = destinations.filter(category=category)
+
+    return render(request, 'destinations/list.html', {
+        'destinations': destinations,
+        'query': query,
+        'selected_category': category,
+    })
+
+@login_required
+def user_dashboard(request):
+    """
+    Displays the user's personal dashboard with their contributions and stats.
+    """
+    user = request.user
+
+    user_destinations = Destination.objects.filter(created_by=user)
+    approved_destinations_count = user_destinations.filter(status='approved').count()
+    pending_destinations_count = user_destinations.filter(status='pending').count()
+    total_destinations_count = user_destinations.count()
+
+    latest_destinations = user_destinations.order_by('-created_at')[:3]
+
+    context = {
+        'user': user,
+        'total_destinations_count': total_destinations_count,
+        'approved_destinations_count': approved_destinations_count,
+        'pending_destinations_count': pending_destinations_count,
+        'latest_destinations': latest_destinations,
+    }
+    return render(request, 'userdashboard.html', context)
+
+
+
