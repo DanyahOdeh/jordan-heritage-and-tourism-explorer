@@ -155,6 +155,15 @@ body {
     text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
     margin: 0;
 }
+.hero-section h2 {
+    /* font-size: 3rem; */
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    margin: 0;
+}
+
+.hero-content h1 {
+    margin-bottom: 25px; /* adds gap between title and button */
+}
 
 .main-cta-btn {
     background-color: #E67E22;
@@ -164,6 +173,7 @@ body {
     text-decoration: none;
     font-weight: bold;
     transition: background 0.3s;
+    margin-top: 20px;
 }
 
 .main-cta-btn:hover {
@@ -217,9 +227,10 @@ body {
 .stats .stat {
     background-color: #E67E22;
     color: #fff;
-    border-radius: 10px;
-    padding: 25px 20px;
-    width: 180px;
+    border-radius: 15px;
+    padding: 30px 25px;
+    width: 320px; /* 🟠 Increased from 180px → more readable and balanced */
+    max-width: 380px; /* Prevents from getting too wide on large screens */
     transition: transform 0.3s;
 }
 
@@ -228,14 +239,15 @@ body {
 }
 
 .stats .stat h3 {
-    font-size: 2rem;
-    margin: 0;
+    font-size: 2.3rem;
+    margin-bottom: 10px;
 }
 
 .stats .stat p {
-    margin-top: 5px;
     font-size: 1rem;
+    line-height: 1.7;
 }
+
 
 /* About Jordan Section */
 .about-jordan {
@@ -398,49 +410,68 @@ body {
 }
 
 /* Featured Items Grid */
+/* Featured Items Grid – Clean, Balanced Layout */
+/* Featured Items Grid – restored 4 cards per row on desktop */
 .featured-items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    justify-items: center; 
-    margin-top: 30px;
-    margin-bottom: 50px;
-    text-align: center; 
+    grid-template-columns: repeat(4, 1fr); /* ✅ 4 cards side-by-side */
+    gap: 30px;
+    justify-items: center;
+    align-items: start;
+    padding: 0 60px;
+    margin: 60px auto;
+    max-width: 1400px;
+    box-sizing: border-box;
 }
 
+/* Individual Cards */
 .featured-items-grid .card {
-    background: white;
-    border-radius: 15px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding-bottom: 15px;
-    max-width: 300px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: 320px; /* consistent size for all 4 */
 }
 
+/* Hover effect */
 .featured-items-grid .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
+/* Card image */
 .featured-items-grid .card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 15px 15px 0 0;
+    border-radius: 16px 16px 0 0;
 }
 
+/* Card title */
 .featured-items-grid .card h3 {
+    color: #E67E22;
     font-size: 1.3rem;
-    margin: 10px 0 5px;
-    color: #e67e22;
+    font-weight: 700;
+    margin: 15px 20px 10px;
+    text-align: center;
 }
 
+/* Card text */
 .featured-items-grid .card p {
     font-size: 1rem;
-    color: #555;
-    margin-bottom: 10px;
+    color: #444;
+    line-height: 1.8;
+    margin: 0 20px 20px;
+    text-align: justify;
+    flex-grow: 1;
 }
+
 
 
 
@@ -468,6 +499,29 @@ footer {
         padding: 30px 15px;
     }
 }
+@media (min-width: 768px) {
+    .featured-items-grid {
+        padding: 0 80px; /* More balanced on desktops */
+    }
+}
+@media (max-width: 600px) {
+    /* Center the tourism counters on mobile */
+    .tourism-counters {
+        flex-direction: column;
+        align-items: center;   /* ✅ centers them horizontally */
+        justify-content: center;
+        gap: 25px;
+        text-align: center;
+    }
+
+    .tourism-counters .counter {
+        width: 85%;            /* ✅ make them a bit narrower */
+        max-width: 320px;      /* keeps same width for all */
+        margin: 0 auto;        /* ensures full centering */
+    }
+}
+
+
 
 @media (max-width: 480px) {
     .featured-items-grid {
@@ -478,3 +532,183 @@ footer {
     }
 }
 
+/* 🌐 Responsive layout fixes for Featured Items Grid */
+
+/* 💻 Tablet screens (601px–1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .featured-items-grid {
+        grid-template-columns: repeat(2, 1fr); /* exactly 2 cards per row */
+        gap: 30px;
+        justify-items: center;
+        padding: 0 40px;
+    }
+
+    .featured-items-grid .card {
+        max-width: 420px;
+    }
+
+    .featured-items-grid .card img {
+        height: 200px;
+    }
+
+    .featured-items-grid .card h3 {
+        font-size: 1.3rem;
+        margin: 10px 15px;
+    }
+
+    .featured-items-grid .card p {
+        font-size: 1rem;
+        margin: 0 15px 20px;
+        text-align: justify;
+        line-height: 1.7;
+    }
+}
+
+/* 📱 Mobile screens (max-width: 600px) */
+@media (max-width: 600px) {
+    .featured-items-grid {
+        grid-template-columns: 1fr; /* 1 card per row */
+        gap: 25px;
+        justify-items: center;
+        padding: 0 20px;
+        margin: 40px 0;
+    }
+
+    .featured-items-grid .card {
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .featured-items-grid .card img {
+        height: 180px;
+    }
+
+    .featured-items-grid .card h3 {
+        font-size: 1.2rem;
+        margin: 10px 12px;
+    }
+
+    .featured-items-grid .card p {
+        font-size: 0.95rem;
+        margin: 0 15px 15px;
+        text-align: justify;
+        line-height: 1.6;
+    }
+}
+/* 🌐 Responsive Hamburger Navbar */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #E67E22;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* 🔹 Tablet & Mobile Styles */
+@media (max-width: 1024px) {
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 25px;
+        position: relative;
+    }
+
+    /* Show hamburger inline with logo */
+    .hamburger {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: #fff;
+        position: absolute;
+        top: 75px; /* sits below navbar */
+        left: 0;
+        padding: 20px 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 10px 0;
+        color: #333;
+        font-weight: 500;
+        text-align: center;
+        width: 100%;
+    }
+
+    .nav-links.active {
+        display: flex;
+        animation: fadeDown 0.3s ease forwards;
+    }
+
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hamburger X animation */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translateY(8px);
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translateY(-8px);
+    }
+
+    /* Hide desktop auth buttons, show mobile ones inside dropdown */
+    .search-login {
+        display: none;
+    }
+
+    .mobile-auth {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .mobile-auth .btn-auth {
+        width: 80%;
+        text-align: center;
+    }
+}
+/* 🛠️ Hide mobile auth on desktop, show only on small screens */
+.mobile-auth {
+    display: none;
+}
+
+/* Show only on mobile/tablet when hamburger menu is active */
+@media (max-width: 1024px) {
+    .mobile-auth {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    /* and hide the desktop login buttons */
+    .search-login {
+        display: none;
+    }
+}

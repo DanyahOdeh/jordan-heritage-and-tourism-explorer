@@ -17,45 +17,65 @@
 </head>
 <body>
     
-    <header class="navbar-container" >
-        <div class="navbar">
-            
-            <div class="logo">
-                <img src="{% static 'images/logo.png' %}" alt="Jordan Logo">
-                <div class="logo-text">
-                    JordanTourism & Heritage Explorer
-                </div>
-            </div>
+    <header class="navbar-container">
+  <div class="navbar">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="{% static 'images/logo.png' %}" alt="Jordan Logo">
+      <div class="logo-text">
+        Jordan Tourism & Heritage Explorer
+      </div>
+    </div>
 
-            <nav class="nav-links">
-                <a href="{% url 'home' %}" class="active">Home</a>
-                
-                {% if user.is_authenticated %}
-                     <a href="{% url 'destination_list' %}">Destinations</a>
-                    <a href="{% url 'add_destination' %}">Add New</a> 
-                  
-                {% endif %}
-                
-                <a href="{% url "about" %}">About</a>
-            </nav>
+    <!-- Hamburger Icon -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-            <div class="search-login">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'user_dashboard' %}" class="btn-auth login">{{ user.username }}</a>
-                    <form method="post" action="{% url 'logout' %}" class="logout-form">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-auth signup logout-button">
-                            Logout
-                        </button>
-                    </form>
-                    
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn-auth login">Login</a>
-                    <a href="{% url 'signup' %}" class="btn-auth signup">Sign Up</a>
-                {% endif %}
-            </div>
-        </div>
-    </header>
+    <!-- Navigation Links -->
+    <nav class="nav-links" id="nav-links">
+      <a href="{% url 'home' %}" class="active">Home</a>
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'destination_list' %}">Destinations</a>
+        <a href="{% url 'add_destination' %}">Add New</a>
+      {% endif %}
+
+      <a href="{% url 'about' %}">About</a>
+
+      <!-- Auth Links also visible in dropdown -->
+      <div class="mobile-auth">
+        {% if user.is_authenticated %}
+          <a href="{% url 'user_dashboard' %}" class="btn-auth login">{{ user.username }}</a>
+          <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="btn-auth signup logout-button">Logout</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn-auth login">Login</a>
+          <a href="{% url 'signup' %}" class="btn-auth signup">Sign Up</a>
+        {% endif %}
+      </div>
+    </nav>
+
+    <!-- Desktop Auth Buttons -->
+    <div class="search-login">
+      {% if user.is_authenticated %}
+        <a href="{% url 'user_dashboard' %}" class="btn-auth login">{{ user.username }}</a>
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+          {% csrf_token %}
+          <button type="submit" class="btn-auth signup logout-button">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn-auth login">Login</a>
+        <a href="{% url 'signup' %}" class="btn-auth signup">Sign Up</a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
 
     <main> 
         {% block content %}{% endblock %}
@@ -77,6 +97,16 @@
         <p> Done by Route-962 Team </p>
         <p>© 2025 All rights reserved. Jordan Heritage & Tourism Explorer</p>
     </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    </script>
 
 </body>
 </html>

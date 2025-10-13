@@ -77,18 +77,26 @@ def destination_detail(request, pk):
     destination = get_object_or_404(Destination, pk=pk)
     return render(request, 'destinations/detail.html',{'destination': destination})
 
-# @login_required
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+@login_required
 def add_destination(request):
     if request.method == 'POST':
         form = DestinationForm(request.POST, request.FILES)
         if form.is_valid():
-            destination = form.save(commit = False)
-            # destination.created_by = request.user
+            destination = form.save(commit=False)
+            destination.created_by = request.user  
+            destination.status = 'pending'         
             destination.save()
+            messages.success(request, 'Your destination has been submitted successfully and is pending approval!')
             return redirect('destination_list')
+        else:
+            messages.error(request, 'Please check the form for errors.')
     else:
-            form = DestinationForm()
-    return render(request, 'destinations/add.html',{'form': form})
+        form = DestinationForm()
+
+    return render(request, 'destinations/add.html', {'form': form})
 
 
 def destination_list(request):
