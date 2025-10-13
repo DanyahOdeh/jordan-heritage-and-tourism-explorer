@@ -98,7 +98,6 @@ def add_destination(request):
             destination.save()
             return redirect('destination_list')
     else:
-    else:
             form = DestinationForm()
     return render(request, 'destinations/add.html',{'form': form})
 

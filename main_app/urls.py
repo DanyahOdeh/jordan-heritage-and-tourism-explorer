@@ -11,8 +11,9 @@ urlpatterns = [
     path('destinations/', views.destination_list, name='destination_list'),
     path('destinations/add/', views.add_destination, name='add_destination'),
     path('destinations/<int:pk>/', views.destination_detail, name='destination_detail'), 
-     path('login/', views.login, name='login'),
-     path('signup/', views.signup, name='signup'),
+    path('login/', views.login, name='login'),
+    path('signup/', views.signup, name='signup'),
+    path('user-dashboard/', views.user_dashboard, name='user_dashboard'),
     #  path('accounts/signup/', views.signup, name='signup'),
 ]
 
