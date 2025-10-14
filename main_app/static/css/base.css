@@ -532,9 +532,9 @@ footer {
     }
 }
 
-/* 🌐 Responsive layout fixes for Featured Items Grid */
+/*  Responsive layout fixes for Featured Items Grid */
 
-/* 💻 Tablet screens (601px–1024px) */
+/*  Tablet screens (601px–1024px) */
 @media (min-width: 601px) and (max-width: 1024px) {
     .featured-items-grid {
         grid-template-columns: repeat(2, 1fr); /* exactly 2 cards per row */
@@ -564,7 +564,7 @@ footer {
     }
 }
 
-/* 📱 Mobile screens (max-width: 600px) */
+/*  Mobile screens (max-width: 600px) */
 @media (max-width: 600px) {
     .featured-items-grid {
         grid-template-columns: 1fr; /* 1 card per row */
@@ -595,7 +595,7 @@ footer {
         line-height: 1.6;
     }
 }
-/* 🌐 Responsive Hamburger Navbar */
+/*  Responsive Hamburger Navbar */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -692,7 +692,7 @@ footer {
         text-align: center;
     }
 }
-/* 🛠️ Hide mobile auth on desktop, show only on small screens */
+/*  Hide mobile auth on desktop, show only on small screens */
 .mobile-auth {
     display: none;
 }

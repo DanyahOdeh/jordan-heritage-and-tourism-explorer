@@ -10,13 +10,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.template import RequestContext
 
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
 
-def login(request):
+def login_view(request):
+    error_message = None
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -27,12 +30,13 @@ def login(request):
             next_url = request.GET.get('next')
             if next_url:
                 return redirect(next_url)
-            return redirect('user_dashboard')
+            # ✅ redirect with ID in the URL
+            return redirect('user_dashboard', user_id=user.id)
         else:
-            messages.error(request, 'Invalid username or password.')
-            return render(request, 'login.html')
+            context = {'error_message': 'Invalid username or password.'}
+            return render(request, 'registration/login.html', context)
 
-    return render(request, 'login.html')
+    return render(request, 'registration/login.html', {'error_message': error_message})
 
 
 def signup(request):
@@ -72,6 +76,7 @@ def destination_list(request):
     destinations = Destination.objects.filter(status='approved')
     return render(request, 'destinations/list.html',{'destinations':destinations})
 
+@login_required
 def destination_detail(request, pk):
     destination = get_object_or_404(Destination, pk=pk)
     destination = get_object_or_404(Destination, pk=pk)
@@ -90,7 +95,7 @@ def add_destination(request):
             destination.status = 'pending'         
             destination.save()
             messages.success(request, 'Your destination has been submitted successfully and is pending approval!')
-            return redirect('destination_list')
+            return redirect('user_dashboard')
         else:
             messages.error(request, 'Please check the form for errors.')
     else:
@@ -118,17 +123,13 @@ def destination_list(request):
     })
 
 @login_required
-def user_dashboard(request):
-    """
-    Displays the user's personal dashboard with their contributions and stats.
-    """
-    user = request.user
+def user_dashboard(request, user_id):
+    user = get_object_or_404(User, id=user_id)
 
     user_destinations = Destination.objects.filter(created_by=user)
     approved_destinations_count = user_destinations.filter(status='approved').count()
     pending_destinations_count = user_destinations.filter(status='pending').count()
     total_destinations_count = user_destinations.count()
-
     latest_destinations = user_destinations.order_by('-created_at')[:3]
 
     context = {
