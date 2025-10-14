@@ -1,32 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User 
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import Http404 , HttpResponseRedirect
-from django.urls import reverse
+from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
+from django.urls import reverse, reverse_lazy
 from django.views.generic import View
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import CreateView, DeleteView
+from django.contrib.auth.forms import UserCreationForm
+from django.template import RequestContext
 
-
-from django.contrib.auth.forms import UserCreationForm 
-from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
-from django.http import HttpResponseForbidden
-
-from .models import Destination , Review
+from .models import Destination, Review
 from .forms import DestinationForm, ReviewForm
 
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.models import User 
-from django.contrib.auth import login as auth_login
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.template import RequestContext
 
 
 # Create your views here.
@@ -81,7 +68,7 @@ def signup(request):
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
         auth_login(request, user)
-        return redirect('user_dashboard')
+        return redirect('user_dashboard',user_id=user.id)
 
     return render(request, 'signup.html')
 
@@ -113,6 +100,8 @@ def destination_detail(request, pk):
         'user_has_reviewed': user_has_reviewed,
     }
     return render(request, 'destinations/detail.html', context)
+
+
 @login_required
 def add_destination(request):
     if request.method == 'POST':
@@ -124,10 +113,9 @@ def add_destination(request):
             destination.save()
             messages.success(request, 'Your destination has been submitted successfully and is pending approval!')
             return redirect('user_dashboard',  user_id=request.user.id)
+            # return redirect('destination_detail', pk= destination.pk)
         else:
             messages.error(request, 'Please check the form for errors.')
-            messages.success(request, 'Destination submitted and will be shown when approved! ')
-            #return redirect('destination_list')
             return redirect('destination_detail', pk= destination.pk)
     else:
         form = DestinationForm()
@@ -150,6 +138,7 @@ def destination_list(request):
         'query': query,
         'selected_category': category,
     })
+
 @login_required
 def user_dashboard(request, user_id):
     user = get_object_or_404(User, id=user_id)
@@ -160,11 +149,91 @@ def user_dashboard(request, user_id):
     total_destinations_count = user_destinations.count()
     latest_destinations = user_destinations.order_by('-created_at')[:3]
 
+    # ✅ حساب عدد الريفيوز وآخرها
+    user_reviews = Review.objects.filter(user=user).order_by('-created_at')
+    user_reviews_count = user_reviews.count()
+    latest_reviews = user_reviews[:3]
+
+    total_feedback_count = user_reviews_count  # لأن ما في Comments حالياً
+
     context = {
         'user': user,
         'total_destinations_count': total_destinations_count,
         'approved_destinations_count': approved_destinations_count,
         'pending_destinations_count': pending_destinations_count,
         'latest_destinations': latest_destinations,
+        'user_reviews_count': user_reviews_count,
+        'total_feedback_count': total_feedback_count,
+        'latest_reviews': latest_reviews,  # ✅ نضيفهم للكونتكست
     }
     return render(request, 'userdashboard.html', context)
+
+
+
+@login_required 
+def edit_destination(request, pk):
+    destination = get_object_or_404(Destination, pk=pk)
+    #authorization check only the creator can edit 
+    if destination.created_by != request.user:
+        messages.error(request,"You are not authorized to  edit this destination.")
+        return redirect('destination_detail', pk=pk) 
+    if request.method == 'POST':
+        form = DestinationForm(request.POST, request.FILES, instance=destination)
+        if form.is_valid():
+            edited_destination = form.save(commit=False)
+            #sets status back to pending for admin approval 
+            edited_destination.status ='pending' 
+            edited_destination.save()
+            messages.success(request, 'Destination updated and sent back for re-approval.') 
+            return redirect('destination_detail',pk=pk)
+    else:
+        form = DestinationForm(instance=destination)
+    return render(request, 'destinations/edit.html', {'form': form, 'destination': destination})  
+
+
+@login_required
+def delete_destination(request, pk):
+    destination = get_object_or_404(Destination, pk=pk)
+
+    if destination.created_by != request.user:
+        messages.error(request,"You are not authorized to delete this destination.")
+        return redirect('destination_detail', pk=pk)
+    if request.method == 'POST':
+        destination.delete()
+        messages.success(request, "Your destination successfully deleted.")
+        return redirect('destination_list')
+    
+    return render(request, 'destinations/confirm_delete.html', {'destination': destination})
+
+
+class AddReviewView(LoginRequiredMixin, View):
+    #Handles displaying and the submission for adding a review
+    def post(self, request, pk):
+        destination = get_object_or_404(Destination, pk=pk)
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            if Review.objects.filter(destination = destination, user=request.user).exists():
+                messages.error(request, "You have already reviewed this destination.")
+            else:
+                review = form.save(commit=False)
+                review.destination = destination
+                review.user = request.user 
+                review.save()  
+                messages.success(request, "Your review has been added.")
+        else:
+            messages.error(request, "Error submitting your review. try again")
+        return HttpResponseRedirect(destination.get_absolute_url() if hasattr(destination, 'get_absolute_url') else reverse('destination_detail', args=[pk]))     
+
+
+class DeleteReviewView(LoginRequiredMixin, UserPassesTestMixin, View):
+    def test_func(self):
+        review = get_object_or_404(Review, pk=self.kwargs['pk'])
+        return self.request.user == review.user
+
+    def post(self, request, pk):
+        review = get_object_or_404(Review, pk=pk)
+        destination_pk = review.destination.pk
+        review.delete()
+        messages.success(request, "Your review has been deleted.")
+        return redirect('destination_detail', pk=destination_pk)

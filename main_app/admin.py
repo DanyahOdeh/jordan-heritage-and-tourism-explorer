@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Destination
+from .models import Destination, Review
 
 # Register your models here.
 @admin.register(Destination)
@@ -16,4 +16,9 @@ class DestinationAdmin(admin.ModelAdmin):
     def make_declined(self, request, queryset):
         queryset.update(status = 'declined') 
     make_declined.short_description = "Make selected destinations as Declined"
+
+
+
+admin.site.register(Review) 
+
   

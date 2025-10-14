@@ -7,115 +7,151 @@
 <link rel="stylesheet" href="{% static 'css/destinations.css' %}">
 
 <section class="destination-detail-section">
-    <div class="detail-hero">
-        <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
-        <div class="hero-overlay">
-            <h1>{{ destination.name }}</h1>
-            <p class="category">{{ destination.get_category_display }}</p>
-            
-            <div class="rating-display">
-                {% if destination.average_rating > 0 %}
-                    <span class="rating-number">{{ destination.rating_display }}</span> 
-                    <i class="fa-solid fa-star"></i> 
-                    ({{ destination.reviews.count }} Reviews)
-                {% else %}
-                    <span class="no-rating">No reviews yet.</span>
-                {% endif %}
-            </div>
-            </div>
+
+  <!-- HEADER -->
+  <div class="destination-header">
+    <h1>{{ destination.name }}</h1>
+    <span class="category-tag">{{ destination.get_category_display }}</span>
+
+    <div class="rating-display">
+      {% if destination.average_rating > 0 %}
+        <span class="rating-number">{{ destination.rating_display }}</span>
+        <i class="fa-solid fa-star"></i>
+        <span class="review-count">({{ destination.reviews.count }} Reviews)</span>
+      {% else %}
+        <span class="no-rating">No reviews yet.</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="destination-content">
+
+    <!-- IMAGE -->
+    <div class="destination-image">
+      <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
     </div>
 
-    <div class="destination-info">
-        <div class="detail-card">
-            <h2>About {{ destination.name }}</h2>
-            <p class="description">{{ destination.description }}</p>
-            
-            {% if user.is_authenticated and destination.created_by == request.user %}
-                <div class="owner-actions">
-                    <a href="{% url 'edit_destination' destination.pk %}" class="action-btn edit-btn">
-                        <i class="fa-solid fa-edit"></i> Edit Destination
-                    </a>
-                    <a href="{% url 'delete_destination' destination.pk %}" class="action-btn delete-btn">
-                        <i class="fa-solid fa-trash-alt"></i> Delete Destination
-                    </a>
-                </div>
-                {% if destination.status != 'approved' %}
-                    <p class="status-note">
-                        <i class="fa-solid fa-exclamation-circle"></i> 
-                        Your post is currently **{{ destination.get_status_display }}**. Only approved posts are public.
-                    </p>
-                {% endif %}
-            {% endif %}
-            <div class="info-grid">
-                <div class="info-item">
-                    <i class="fa-regular fa-user"></i>
-                    <span><strong>Added by:</strong> {{ destination.created_by.username }}</span>
-                </div>
-            </div>
-            
-            <section class="reviews-section">
-                <h3>Reviews</h3>
-                {% if user.is_authenticated %}
-                    {% if not user_has_reviewed %}
-                    <div class="add-review-form">
-                       <h4>Leave a Review</h4>
-                       <form method="post" action="{% url 'add_review' destination.pk %}">
-                           {% csrf_token %}
-                           {{ review_form.as_p }} 
-                           <button type="submit" class="submit-btn">Submit Review</button>
-                       </form>
-                    </div>
-                {% else %}
-        <p class="review-message">You have already reviewed this destination. You cannot submit another.</p>
-    {% endif %}
-{% else %}
-    <p class="review-message"><a href="{% url 'login' %}">Log in</a> to leave a review.</p>
-{% endif %}
-                {% if destination.reviews.all %}
-                    <div class="review-list">
-                        {% for review in destination.reviews.all %}
-                            <div class="review-item">
-                                <p class="review-header">
-                                    <span class="reviewer">
-                                        {% if destination.created_by == review.user %}
-                                            **{{ review.user.username }} (Author)**
-                                        {% else %}
-                                            {{ review.user.username }}
-                                        {% endif %}
-                                    </span> 
-                                    <span class="rating-stars">
-                                        {% for _ in "12345"|make_list %}
-                                            {% if forloop.counter <= review.rating %}
-                                                <i class="fa-solid fa-star rated"></i>
-                                            {% else %}
-                                                <i class="fa-regular fa-star unrated"></i>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </span>
-                                </p>
-                                <p class="review-comment">{{ review.comment }}</p>
-                                <p class="review-meta">
-                                    <small>Reviewed on: {{ review.created_at|date:"M j, Y" }}</small>
-                                    
-                                    {% if user.is_authenticated and review.user == request.user %}
-                                    <form method="post" action="{% url 'delete_review' review.pk %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="delete-review-link">Delete</button>
-                                    </form>
-                                        
-                                    {% endif %}
-                                </p>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <p>Be the first to review this destination!</p>
-                {% endif %}
-            </section>
-            <a href="{% url 'destination_list' %}" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i> Back to Destinations
+    <!-- BODY GRID -->
+    <div class="destination-body">
+
+      <!-- LEFT COLUMN -->
+      <div class="destination-left">
+
+        <!-- 1️⃣ CARD: DESCRIPTION -->
+        <div class="destination-story">
+          <h2>Discover {{ destination.name }}</h2>
+          <p>{{ destination.description }}</p>
+
+          {% if user.is_authenticated and destination.created_by == request.user %}
+          <div class="owner-actions">
+            <a href="{% url 'edit_destination' destination.pk %}" class="action-btn edit-btn">
+              <i class="fa-solid fa-edit"></i> Edit Destination
             </a>
+            <a href="{% url 'delete_destination' destination.pk %}" class="action-btn delete-btn">
+              <i class="fa-solid fa-trash-alt"></i> Delete Destination
+            </a>
+          </div>
+          {% if destination.status != 'approved' %}
+          <p class="status-note">
+            <i class="fa-solid fa-exclamation-circle"></i>
+            Your post is currently <strong>{{ destination.get_status_display }}</strong>. Only approved posts are public.
+          </p>
+          {% endif %}
+          {% endif %}
         </div>
+
+        <!-- 3️⃣ CARD: ADD REVIEW -->
+        <div class="review-card add-review-card">
+          <h3>Leave a Review</h3>
+          {% if user.is_authenticated %}
+            {% if not user_has_reviewed %}
+              <form method="post" action="{% url 'add_review' destination.pk %}" class="styled-review-form">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="id_rating">Your Rating (1–5 Stars):</label>
+                  {{ review_form.rating }}
+                </div>
+                <div class="form-group">
+                  <label for="id_comment">Comment:</label>
+                  {{ review_form.comment }}
+                </div>
+                <button type="submit" class="submit-btn">Submit Review</button>
+              </form>
+            {% else %}
+              <p class="review-message">You have already reviewed this destination.</p>
+            {% endif %}
+          {% else %}
+            <p class="review-message"><a href="{% url 'login' %}">Log in</a> to leave a review.</p>
+          {% endif %}
+        </div>
+
+        <!-- 4️⃣ CARD: EXISTING REVIEWS -->
+        <div class="review-card existing-reviews-card">
+          <h3>Visitor Reviews</h3>
+          {% if destination.reviews.all %}
+            <div class="review-list">
+              {% for review in destination.reviews.all %}
+              <div class="review-item">
+                <div class="review-header">
+                  <span class="reviewer">
+                    {% if destination.created_by == review.user %}
+                      <strong>{{ review.user.username }} (Author)</strong>
+                    {% else %}
+                      {{ review.user.username }}
+                    {% endif %}
+                  </span>
+                  <span class="rating-stars">
+                    {% for _ in "12345"|make_list %}
+                      {% if forloop.counter <= review.rating %}
+                        <i class="fa-solid fa-star rated"></i>
+                      {% else %}
+                        <i class="fa-regular fa-star unrated"></i>
+                      {% endif %}
+                    {% endfor %}
+                  </span>
+                </div>
+                <p class="review-comment">{{ review.comment }}</p>
+                <p class="review-meta">
+                  <small>Reviewed on: {{ review.created_at|date:"M j, Y" }}</small>
+                  {% if user.is_authenticated and review.user == request.user %}
+                  <form method="post" action="{% url 'delete_review' review.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-review-link">Delete</button>
+                  </form>
+                  {% endif %}
+                </p>
+              </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p>No reviews yet. Be the first to share your thoughts!</p>
+          {% endif %}
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="destination-info-card">
+        <h3>Destination Info</h3>
+        <ul>
+          <li><i class="fa-solid fa-location-dot"></i><strong>Location:</strong> {{ destination.location }}</li>
+          <li><i class="fa-solid fa-person-hiking"></i><strong>Activity Type:</strong> {{ destination.activity_type }}</li>
+          <li><i class="fa-solid fa-layer-group"></i><strong>Category:</strong> {{ destination.get_category_display }}</li>
+          <li><i class="fa-solid fa-calendar-days"></i><strong>Added on:</strong> {{ destination.created_at|date:"F d, Y" }}</li>
+          <li><i class="fa-solid fa-user"></i><strong>Published by:</strong> {{ destination.created_by.username }}</li>
+        </ul>
+      </div>
+
     </div>
+
+    <!-- BACK BUTTON -->
+    <div class="back-button-container">
+      <a href="{% url 'destination_list' %}" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Destinations
+      </a>
+    </div>
+
+  </div>
 </section>
-{% endblock content %}
+{% endblock %}

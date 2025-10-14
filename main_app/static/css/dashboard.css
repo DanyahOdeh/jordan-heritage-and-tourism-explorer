@@ -135,10 +135,42 @@
 }
 
 /* Latest Activity Section */
+/* Latest Activity Section */
+.latest-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.latest-activity {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    padding: 25px 20px;
+    transition: transform 0.3s ease;
+}
+
+.latest-activity:hover {
+    transform: translateY(-3px);
+}
+
 .latest-activity h3 {
-    color: #555;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.latest-activity h3::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
 }
 
 .activity-item {
@@ -147,13 +179,18 @@
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 8px;
-    margin-bottom: 10px;
-    border-left: 5px solid var(--primary-color); 
+    margin-bottom: 12px;
+    border-left: 5px solid var(--primary-color);
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.activity-item:hover {
+    transform: translateX(5px);
 }
 
 .activity-item img {
-    width: 70px; 
+    width: 70px;
     height: 70px;
     border-radius: 8px;
     object-fit: cover;
@@ -166,35 +203,38 @@
 
 .activity-details strong {
     display: block;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--primary-color);
     margin-bottom: 5px;
 }
 
 .activity-details p {
     margin: 0;
-    color: #666;
-    font-size: 0.95rem;
+    color: #555;
+    font-size: 0.9rem;
 }
 
 .status-badge {
-    background-color: #ffcc00; 
+    background-color: #ffcc00;
     color: #333;
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-    display: inline-block; 
+    display: inline-block;
     margin-top: 8px;
 }
+
 .status-badge.approved {
-    background-color: #28a745; 
+    background-color: #28a745;
     color: white;
 }
+
 .status-badge.declined {
-    background-color: #dc3545; 
+    background-color: #dc3545;
     color: white;
 }
+
 
 .sidebar-logout-form {
     margin: 0;

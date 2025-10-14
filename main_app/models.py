@@ -27,14 +27,24 @@ class Destination(models.Model):
 
     def __str__(self): 
         return self.name
+    
+
     def average_rating(self): 
         return self.reviews.aggregate(models.Avg('rating'))['rating__avg']
+    
     @property 
     def rating_display(self): 
         avg = self.average_rating()
         return f"{avg:.1f}/5" if avg else "N/A" 
-    def __str__(self): return self.name 
-    def get_absolute_url(self): return reverse("destination_detail", kwargs={"pk": self.pk}) 
+    
+
+    def __str__(self): 
+         return self.name 
+
+
+    def get_absolute_url(self):
+         return reverse("destination_detail", kwargs={"pk": self.pk}) 
+    
     
 class Review(models.Model):
         destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='reviews') 
@@ -48,4 +58,5 @@ class Review(models.Model):
             unique_together = ('destination', 'user') #order
             ordering= ['-created_at'] 
    
-        def __str__(self): return f"Review by {self.user.username} for {self.destination.name}"
+        def __str__(self): 
+             return f"Review by {self.user.username} for {self.destination.name}"
