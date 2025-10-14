@@ -7,70 +7,56 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <div class="hero-content">
+    <div class="hero-content" style="text-align: center;">
         <h1>Jordan Heritage & Tourism Explorer</h1>
-        <a href="#" class="main-cta-btn">
-            <span class="ar-text">Explorer Jordan Sites </span>
-      
+        <a href="{% url "login" %}" class="main-cta-btn">
+            <span class="ar-text">Explore Jordan Sites</span>
         </a>
-        
     </div>
 </section>
 
-<!-- Featured Items -->
-<section class="featured-section">
+<!-- Featured Items Section -->
+<section class="featured-section" style="text-align: center;">
 
-    <div class="category-filters">
-        <button class="filter-btn historical">HISTORICAL <i class="fa-solid fa-fort-awesome-alt"></i></button>
-        <button class="filter-btn nature">NATURE <i class="fa-solid fa-leaf"></i></button>
-        <button class="filter-btn adventure">ADVENTURE <i class="fa-solid fa-mountain"></i></button>
-    </div>
-
-    <div class="featured-items-grid">
-
-        <div class="card">
-            <div class="card-image"><img src="{% static 'images/petra.jpg' %}" alt="Petra"></div>
-            <div class="card-icons"><i class="fa-solid fa-lock card-lock-icon"></i><i class="fa-solid fa-map-location-dot"></i></div>
-            <h3>Petra: The Rose City</h3>
-            <p>Ancient Nabataean kingdom</p>
-            <a href="#" class="view-btn locked-access">VIEW DETAILS</a>
-        </div>
-
-        <div class="card">
-            <div class="card-image"><img src="{% static 'images/deadsea.jpg' %}" alt="Dead Sea"></div>
-            <div class="card-icons"><i class="fa-solid fa-lock card-lock-icon"></i><i class="fa-solid fa-leaf"></i></div>
-            <h3>Dead Sea: Lowest Point on Earth</h3>
-            <p>Therapeutic salt water & minerals</p>
-            <a href="#" class="view-btn locked-access">VIEW DETAILS</a>
-        </div>
-
-        <div class="card">
-            <div class="card-image"><img src="{% static 'images/jerash.jpg' %}" alt="Ajloun Forest"></div>
-            <div class="card-icons"><i class="fa-solid fa-lock card-lock-icon"></i><i class="fa-solid fa-leaf"></i></div>
-            <h3>Ajloun Forest: Green Escapes</h3>
-            <p>Hiking & nature reserves</p>
-            <a href="#" class="view-btn locked-access">VIEW DETAILS</a>
-        </div>
-
-        <div class="card">
-            <div class="card-image"><img src="{% static 'images/wadirum.jpg' %}" alt="Wadi Rum"></div>
-            <div class="card-icons"><i class="fa-solid fa-lock card-lock-icon"></i><i class="fa-solid fa-mountain"></i></div>
-            <h3>Wadi Rum: Valley of the Moon</h3>
-            <p>Desert landscapes & Bedouin culture</p>
-            <a href="#" class="view-btn locked-access">VIEW DETAILS</a>
-        </div>
-
-    </div>
+    <!-- Category Filters -->
+    <h1>Never hesitate to go far, beyond all seas, all borders, all countries, and all beliefs!</h1>
+    <h3>Come and explore Jordan!</h3>
   
+
+    <!-- Featured Cards -->
+    <div class="featured-items-grid">
+    <div class="card">
+        <div class="card-image"><img src="{% static 'images/petra.jpg' %}" alt="Petra"></div>
+        <h3>Discover the Archaeological Sites</h3>
+        <p>Explore Jordan’s ancient wonders, from Petra to Jerash, and uncover stories carved in stone across time.</p>
+    </div>
+    <div class="card">
+        <div class="card-image"><img src="{% static 'images/deadsea.jpg' %}" alt="Dead Sea"></div>
+        <h3>Enjoy the Marine Beauty</h3>
+        <p>Swim, dive, and relax by the Red Sea or the healing waters of the Dead Sea, surrounded by breathtaking views.</p>
+    </div>
+    <div class="card">
+        <div class="card-image"><img src="{% static 'images/jerash.jpg' %}" alt="Jerash"></div>
+        <h3>Trace Ancient Civilizations</h3>
+        <p>Walk through Roman theaters and Nabatean temples that reveal Jordan’s timeless history and culture.</p>
+    </div>
+    <div class="card">
+        <div class="card-image"><img src="{% static 'images/wadirum.jpg' %}" alt="Wadi Rum"></div>
+        <h3>Adventure in Wadi Rum</h3>
+        <p>Camp under the stars, ride camels, and explore the red desert that inspired explorers and filmmakers alike.</p>
+    </div>
+</div>
+</section>
+
 <!-- Tourism Paragraph Section -->
-<section class="about-jordan">
+<section class="about-jordan" style="text-align: center;">
     <div class="about-content">
         <h2>Promoting Tourism in Jordan</h2>
         <p>
             Jordan is a land of timeless beauty, where ancient history meets natural wonders. 
             From the rose-red city of Petra to the calm waters of the Dead Sea and the vast deserts of Wadi Rum, 
             every destination tells a unique story. Yet, beyond these famous landmarks, Jordan holds many 
-            hidden gems — small villages, mountain trails, and cultural spots that few have ever experienced.
+            hidden gems, small villages, mountain trails, and cultural spots that few have ever experienced.
         </p>
         <p>
             Through our website, <strong>Jordan Heritage & Tourism Explorer</strong>, we aim to highlight these 
@@ -85,20 +71,21 @@
     </div>
 </section>
 
-<div class="tourism-counters">
+<!-- Tourism Counters Section -->
+<section class="tourism-counters" style="text-align: center;">
   <div class="counter">
     <span class="number" data-target="120">0</span>
-    <p>🏞️ Numbers Of Visited Sites</p>
+    <p> Number Of Visited Sites</p>
   </div>
   <div class="counter">
     <span class="number" data-target="5000">0</span>
-    <p>🧭 Numbers Of visitors</p>
+    <p> Number Of Visitors</p>
   </div>
   <div class="counter">
     <span class="number" data-target="35">0</span>
-    <p>🌍 Number Of Unexplored Areas</p>
+    <p> Number Of Unexplored Areas</p>
   </div>
-</div>
+</section>
 
 <script>
     const counters = document.querySelectorAll('.number');
@@ -106,13 +93,11 @@
 
     function startCounters() {
       if (countersStarted) return;
-
       counters.forEach(counter => {
         const updateCount = () => {
           const target = +counter.getAttribute('data-target');
           const count = +counter.innerText;
           const increment = target / 500;
-
           if(count < target){
             counter.innerText = Math.ceil(count + increment);
             setTimeout(updateCount, 25);
@@ -122,7 +107,6 @@
         };
         updateCount();
       });
-
       countersStarted = true;
     }
 
@@ -136,16 +120,12 @@
 
     window.addEventListener('scroll', checkCountersInView);
     window.addEventListener('load', checkCountersInView);
-  </script>
+</script>
 
-    <div class="add-new-container">
-        <p>Exploer And Add New Places You Visited</p>
-        <a href="#" class="add-new-btn">ADD NEW Sites</a>
-    </div>
-
+<!-- Add New Sites Section -->
+<section class="add-new-container" style="text-align: center;">
+    <p>Explore and add new places you visited on your profile signup to start your journey!</p>
+   
 </section>
-
-
-
 
 {% endblock %}

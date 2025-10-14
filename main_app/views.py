@@ -18,37 +18,42 @@ from .models import Destination , Review
 from .forms import DestinationForm, ReviewForm
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User 
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from django.template import RequestContext
+
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
 
+def login_view(request):
+    error_message = None
 
-
-def login(request):
     if request.method == 'POST':
-
         username = request.POST.get('username')
-        email = request.POST.get('email')
         password = request.POST.get('password')
-        terms_accepted = request.POST.get('terms_accepted')
 
-        if not (username and email and password and terms_accepted):
-            messages.error(request, 'Please fill in all fields and accept the terms.')
-            return render(request, 'login.html')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            next_url = request.GET.get('next')
+            if next_url:
+                return redirect(next_url)
+            # ✅ redirect with ID in the URL
+            return redirect('user_dashboard', user_id=user.id)
+        else:
+            context = {'error_message': 'Invalid username or password.'}
+            return render(request, 'registration/login.html', context)
 
-        try:
-            # مثال لإنشاء مستخدم جديد
-            user = User.objects.create_user(username=username, email=email, password=password)
-            user.save()
-            messages.success(request, 'Account created successfully! Please log in.')
-            return redirect('login_url_name') 
-        except Exception as e:
-            messages.error(request, f'An error occurred: {e}')
-            
-            return render(request, 'login.html')
-            
-    return render(request, 'login.html')
+    return render(request, 'registration/login.html', {'error_message': error_message})
+
 
 def signup(request):
     if request.method == 'POST':
@@ -75,15 +80,19 @@ def signup(request):
 
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
-        messages.success(request, 'Account created successfully! Please log in.')
-        return redirect('home')
+        auth_login(request, user)
+        return redirect('user_dashboard')
 
     return render(request, 'signup.html')
+
+def about(request):
+      return render(request, 'about.html')
 
 def destination_list(request):
     destinations = Destination.objects.filter(status='approved')
     return render(request, 'destinations/list.html',{'destinations':destinations})
 
+@login_required
 def destination_detail(request, pk):
     #destination = get_object_or_404(Destination, pk=pk, status='approved')
     destination = get_object_or_404(Destination, pk=pk)
@@ -109,9 +118,14 @@ def add_destination(request):
     if request.method == 'POST':
         form = DestinationForm(request.POST, request.FILES)
         if form.is_valid():
-            destination = form.save(commit = False)
-            destination.created_by = request.user
+            destination = form.save(commit=False)
+            destination.created_by = request.user  
+            destination.status = 'pending'         
             destination.save()
+            messages.success(request, 'Your destination has been submitted successfully and is pending approval!')
+            return redirect('user_dashboard',  user_id=request.user.id)
+        else:
+            messages.error(request, 'Please check the form for errors.')
             messages.success(request, 'Destination submitted and will be shown when approved! ')
             #return redirect('destination_list')
             return redirect('destination_detail', pk= destination.pk)
@@ -136,66 +150,21 @@ def destination_list(request):
         'query': query,
         'selected_category': category,
     })
-    return render(request, 'destinations/add.html',{'form': form})
-@login_required 
-def edit_destination(request, pk):
-    destination = get_object_or_404(Destination, pk=pk)
-    #authorization check only the creator can edit 
-    if destination.created_by != request.user:
-        messages.error(request,"You are not authorized to  edit this destination.")
-        return redirect('destination_detail', pk=pk) 
-    if request.method == 'POST':
-        form = DestinationForm(request.POST, request.FILES, instance=destination)
-        if form.is_valid():
-            edited_destination = form.save(commit=False)
-            #sets status back to pending for admin approval 
-            edited_destination.status ='pending' 
-            edited_destination.save()
-            messages.success(request, 'Destination updated and sent back for re-approval.') 
-            return redirect('destination_detail',pk=pk)
-    else:
-        form = DestinationForm(instance=destination)
-    return render(request, 'destinations/edit.html', {'form': form, 'destination': destination})  
 @login_required
-def delete_destination(request, pk):
-    destination = get_object_or_404(Destination, pk=pk)
+def user_dashboard(request, user_id):
+    user = get_object_or_404(User, id=user_id)
 
-    if destination.created_by != request.user:
-        messages.error(request,"You are not authorized to delete this destination.")
-        return redirect('destination_detail', pk=pk)
-    if request.method == 'POST':
-        destination.delete()
-        messages.success(request, "Your destination successfully deleted.")
-        return redirect('destination_list')
-    
-    return render(request, 'destinations/confirm_delete.html', {'destination': destination})
+    user_destinations = Destination.objects.filter(created_by=user)
+    approved_destinations_count = user_destinations.filter(status='approved').count()
+    pending_destinations_count = user_destinations.filter(status='pending').count()
+    total_destinations_count = user_destinations.count()
+    latest_destinations = user_destinations.order_by('-created_at')[:3]
 
-class AddReviewView(LoginRequiredMixin, View):
-    #Handles displaying and the submission for adding a review
-    def post(self, request, pk):
-        destination = get_object_or_404(Destination, pk=pk)
-        form = ReviewForm(request.POST)
-
-        if form.is_valid():
-            if Review.objects.filter(destination = destination, user=request.user).exists():
-                messages.error(request, "You have already reviewed this destination.")
-            else:
-                review = form.save(commit=False)
-                review.destination = destination
-                review.user = request.user 
-                review.save()  
-                messages.success(request, "Your review has been added.")
-        else:
-            messages.error(request, "Error submitting your review. try again")
-        return HttpResponseRedirect(destination.get_absolute_url() if hasattr(destination, 'get_absolute_url') else reverse('destination_detail', args=[pk]))             
-class DeleteReviewView(LoginRequiredMixin, UserPassesTestMixin, View):
-    def test_func(self):
-        review = get_object_or_404(Review, pk=self.kwargs['pk'])
-        return self.request.user == review.user
-
-    def post(self, request, pk):
-        review = get_object_or_404(Review, pk=pk)
-        destination_pk = review.destination.pk
-        review.delete()
-        messages.success(request, "Your review has been deleted.")
-        return redirect('destination_detail', pk=destination_pk)
+    context = {
+        'user': user,
+        'total_destinations_count': total_destinations_count,
+        'approved_destinations_count': approved_destinations_count,
+        'pending_destinations_count': pending_destinations_count,
+        'latest_destinations': latest_destinations,
+    }
+    return render(request, 'userdashboard.html', context)
