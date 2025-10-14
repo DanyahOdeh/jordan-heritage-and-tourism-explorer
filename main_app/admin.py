@@ -16,4 +16,4 @@ class DestinationAdmin(admin.ModelAdmin):
     def make_declined(self, request, queryset):
         queryset.update(status = 'declined') 
     make_declined.short_description = "Make selected destinations as Declined"
-         
+  
