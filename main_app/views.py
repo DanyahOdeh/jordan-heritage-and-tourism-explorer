@@ -95,7 +95,7 @@ def add_destination(request):
             destination.status = 'pending'         
             destination.save()
             messages.success(request, 'Your destination has been submitted successfully and is pending approval!')
-            return redirect('user_dashboard')
+            return redirect('user_dashboard',  user_id=request.user.id)
         else:
             messages.error(request, 'Please check the form for errors.')
     else:
