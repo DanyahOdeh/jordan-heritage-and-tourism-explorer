@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Confirm Delete | Explorer{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/destinations.css' %}">
+
+<section class="add-destination-section">
+  <div class="form-container delete-confirmation">
+    <h1 class="form-title">Confirm Deletion</h1>
+    
+    <p class="form-subtitle">
+        Are you sure you want to permanently delete the destination **"{{ destination.name }}"**?
+        This action cannot be undone.
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="submit-btn delete-btn">Yes, Delete This Destination</button>
+      <a href="{% url 'destination_detail' destination.pk %}" class="cancel-btn">No, Keep It</a>
+    </form>
+  </div>
+</section>
+{% endblock %}
