@@ -6,7 +6,6 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/destinations.css' %}">
 
-<!--  Hero Section -->
 <section class="destination-hero">
   <div class="hero-overlay">
     <h1>Discover the Wonders of Jordan</h1>
@@ -14,7 +13,6 @@
   </div>
 </section>
 
-<!--  Search and Filter -->
 <div class="filters-container">
   <form method="get" class="search-form">
     <input type="text" name="q" placeholder="Search destinations..." value="{{ query }}">
@@ -29,7 +27,6 @@
   </div>
 </div>
 
-<!--  Destination Cards -->
 <section class="destination-list-section">
   <div class="container">
     {% if destinations %}

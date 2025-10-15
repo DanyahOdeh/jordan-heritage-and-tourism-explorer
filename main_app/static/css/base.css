@@ -156,13 +156,12 @@ body {
     margin: 0;
 }
 .hero-section h2 {
-    /* font-size: 3rem; */
     text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
     margin: 0;
 }
 
 .hero-content h1 {
-    margin-bottom: 25px; /* adds gap between title and button */
+    margin-bottom: 25px; 
 }
 
 .main-cta-btn {
@@ -229,8 +228,8 @@ body {
     color: #fff;
     border-radius: 15px;
     padding: 30px 25px;
-    width: 320px; /* 🟠 Increased from 180px → more readable and balanced */
-    max-width: 380px; /* Prevents from getting too wide on large screens */
+    width: 320px; 
+    max-width: 380px;
     transition: transform 0.3s;
 }
 
@@ -409,12 +408,9 @@ body {
     background-color: #D35400;
 }
 
-/* Featured Items Grid */
-/* Featured Items Grid – Clean, Balanced Layout */
-/* Featured Items Grid – restored 4 cards per row on desktop */
 .featured-items-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* ✅ 4 cards side-by-side */
+    grid-template-columns: repeat(4, 1fr); 
     gap: 30px;
     justify-items: center;
     align-items: start;
@@ -436,7 +432,7 @@ body {
     justify-content: space-between;
     height: 100%;
     width: 100%;
-    max-width: 320px; /* consistent size for all 4 */
+    max-width: 320px; 
 }
 
 /* Hover effect */
@@ -472,9 +468,6 @@ body {
     flex-grow: 1;
 }
 
-
-
-
 /* Footer */
 footer {
     background-color: #333;
@@ -501,27 +494,24 @@ footer {
 }
 @media (min-width: 768px) {
     .featured-items-grid {
-        padding: 0 80px; /* More balanced on desktops */
+        padding: 0 80px; 
     }
 }
 @media (max-width: 600px) {
-    /* Center the tourism counters on mobile */
     .tourism-counters {
         flex-direction: column;
-        align-items: center;   /* ✅ centers them horizontally */
+        align-items: center;   
         justify-content: center;
         gap: 25px;
         text-align: center;
     }
 
     .tourism-counters .counter {
-        width: 85%;            /* ✅ make them a bit narrower */
-        max-width: 320px;      /* keeps same width for all */
-        margin: 0 auto;        /* ensures full centering */
+        width: 85%;           
+        max-width: 320px;      
+        margin: 0 auto;        
     }
 }
-
-
 
 @media (max-width: 480px) {
     .featured-items-grid {
@@ -532,12 +522,9 @@ footer {
     }
 }
 
-/*  Responsive layout fixes for Featured Items Grid */
-
-/*  Tablet screens (601px–1024px) */
 @media (min-width: 601px) and (max-width: 1024px) {
     .featured-items-grid {
-        grid-template-columns: repeat(2, 1fr); /* exactly 2 cards per row */
+        grid-template-columns: repeat(2, 1fr); 
         gap: 30px;
         justify-items: center;
         padding: 0 40px;
@@ -567,7 +554,7 @@ footer {
 /*  Mobile screens (max-width: 600px) */
 @media (max-width: 600px) {
     .featured-items-grid {
-        grid-template-columns: 1fr; /* 1 card per row */
+        grid-template-columns: 1fr; 
         gap: 25px;
         justify-items: center;
         padding: 0 20px;
@@ -614,7 +601,7 @@ footer {
     transition: all 0.3s ease;
 }
 
-/* 🔹 Tablet & Mobile Styles */
+/* Tablet & Mobile Styles */
 @media (max-width: 1024px) {
     .navbar {
         display: flex;
@@ -624,7 +611,6 @@ footer {
         position: relative;
     }
 
-    /* Show hamburger inline with logo */
     .hamburger {
         display: flex;
         align-items: center;
@@ -637,7 +623,7 @@ footer {
         width: 100%;
         background-color: #fff;
         position: absolute;
-        top: 75px; /* sits below navbar */
+        top: 75px; 
         left: 0;
         padding: 20px 0;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -674,7 +660,6 @@ footer {
         transform: rotate(-45deg) translateY(-8px);
     }
 
-    /* Hide desktop auth buttons, show mobile ones inside dropdown */
     .search-login {
         display: none;
     }
@@ -692,12 +677,11 @@ footer {
         text-align: center;
     }
 }
-/*  Hide mobile auth on desktop, show only on small screens */
+
 .mobile-auth {
     display: none;
 }
 
-/* Show only on mobile/tablet when hamburger menu is active */
 @media (max-width: 1024px) {
     .mobile-auth {
         display: flex;
@@ -706,8 +690,6 @@ footer {
         gap: 10px;
         margin-top: 10px;
     }
-
-    /* and hide the desktop login buttons */
     .search-login {
         display: none;
     }

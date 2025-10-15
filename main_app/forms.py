@@ -1,5 +1,6 @@
 from django import forms
 from .models import Destination, Review
+from django.contrib.auth.models import User
 
 class DestinationForm(forms.ModelForm):
     class Meta:
@@ -28,3 +29,18 @@ class ReviewForm(forms.ModelForm):
         widgets = {
             'comment': forms.Textarea(attrs={'rows': 3}),
         }
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }   
+
+   

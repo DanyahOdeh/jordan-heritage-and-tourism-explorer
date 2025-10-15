@@ -16,7 +16,7 @@
         
         <main class="main-content">
             <h1>Dashboard</h1>
-            <p class="welcome-message">Welcome back, {{ user.username }}!</p>
+            <p class="welcome-message">Welcome back, {{ user.username }}! <a href="{% url 'manage_account' %}" class="manage-account-link">Manage Account</a></p>
 
             <div class="stat-cards-grid">
                 

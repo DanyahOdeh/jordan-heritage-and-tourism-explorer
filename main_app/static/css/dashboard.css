@@ -135,7 +135,6 @@
 }
 
 /* Latest Activity Section */
-/* Latest Activity Section */
 .latest-sections {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
@@ -274,4 +273,27 @@
 
 .sidebar-logout-button:hover i {
     color: var(--primary-color);
+}
+
+.welcome-message {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.manage-account-link {
+    font-size: 0.9rem; 
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid var(--primary-color); 
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.manage-account-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }

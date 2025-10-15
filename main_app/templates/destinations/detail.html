@@ -8,7 +8,6 @@
 
 <section class="destination-detail-section">
 
-  <!-- HEADER -->
   <div class="destination-header">
     <h1>{{ destination.name }}</h1>
     <span class="category-tag">{{ destination.get_category_display }}</span>
@@ -24,21 +23,16 @@
     </div>
   </div>
 
-  <!-- CONTENT -->
   <div class="destination-content">
 
-    <!-- IMAGE -->
     <div class="destination-image">
       <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
     </div>
 
-    <!-- BODY GRID -->
     <div class="destination-body">
 
-      <!-- LEFT COLUMN -->
       <div class="destination-left">
 
-        <!-- 1️⃣ CARD: DESCRIPTION -->
         <div class="destination-story">
           <h2>Discover {{ destination.name }}</h2>
           <p>{{ destination.description }}</p>
@@ -61,7 +55,6 @@
           {% endif %}
         </div>
 
-        <!-- 3️⃣ CARD: ADD REVIEW -->
         <div class="review-card add-review-card">
           <h3>Leave a Review</h3>
           {% if user.is_authenticated %}
@@ -86,7 +79,6 @@
           {% endif %}
         </div>
 
-        <!-- 4️⃣ CARD: EXISTING REVIEWS -->
         <div class="review-card existing-reviews-card">
           <h3>Visitor Reviews</h3>
           {% if destination.reviews.all %}
@@ -131,7 +123,6 @@
 
       </div>
 
-      <!-- RIGHT COLUMN -->
       <div class="destination-info-card">
         <h3>Destination Info</h3>
         <ul>
@@ -145,7 +136,6 @@
 
     </div>
 
-    <!-- BACK BUTTON -->
     <div class="back-button-container">
       <a href="{% url 'destination_list' %}" class="back-btn">
         <i class="fa-solid fa-arrow-left"></i> Back to Destinations

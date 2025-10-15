@@ -10,9 +10,12 @@ from django.views.generic import View
 from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.template import RequestContext
-
+from .forms import DestinationForm, ReviewForm, UserUpdateForm 
 from .models import Destination, Review
-from .forms import DestinationForm, ReviewForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import logout
+
 
 
 
@@ -149,12 +152,12 @@ def user_dashboard(request, user_id):
     total_destinations_count = user_destinations.count()
     latest_destinations = user_destinations.order_by('-created_at')[:3]
 
-    # ✅ حساب عدد الريفيوز وآخرها
+   
     user_reviews = Review.objects.filter(user=user).order_by('-created_at')
     user_reviews_count = user_reviews.count()
     latest_reviews = user_reviews[:3]
 
-    total_feedback_count = user_reviews_count  # لأن ما في Comments حالياً
+    total_feedback_count = user_reviews_count 
 
     context = {
         'user': user,
@@ -164,7 +167,7 @@ def user_dashboard(request, user_id):
         'latest_destinations': latest_destinations,
         'user_reviews_count': user_reviews_count,
         'total_feedback_count': total_feedback_count,
-        'latest_reviews': latest_reviews,  # ✅ نضيفهم للكونتكست
+        'latest_reviews': latest_reviews,  
     }
     return render(request, 'userdashboard.html', context)
 
@@ -237,3 +240,52 @@ class DeleteReviewView(LoginRequiredMixin, UserPassesTestMixin, View):
         review.delete()
         messages.success(request, "Your review has been deleted.")
         return redirect('destination_detail', pk=destination_pk)
+
+
+@login_required
+def manage_account(request):
+    user = request.user 
+
+    
+    if 'update_info' in request.POST:
+        info_form = UserUpdateForm(request.POST, instance=user)
+        if info_form.is_valid():
+            info_form.save()
+            messages.success(request, 'Your account information has been updated successfully!')
+            return redirect('manage_account') 
+        else:
+            messages.error(request, 'Error updating account information. Please review the fields.')
+    else:
+        info_form = UserUpdateForm(instance=user)
+
+    
+    if 'change_password' in request.POST:
+        password_form = PasswordChangeForm(user=user, data=request.POST)
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user) 
+            messages.success(request, 'Your password has been changed successfully!')
+            return redirect('manage_account')
+        else:
+            messages.error(request, 'Error changing password. Please ensure your old password is correct.')
+    else:
+        password_form = PasswordChangeForm(user=user)
+
+    context = {
+        'info_form': info_form,
+        'password_form': password_form,
+    }
+    return render(request, 'manage_account.html', context)      
+
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        user = request.user
+        user.delete()
+        
+        logout(request) 
+        messages.success(request, "Your account has been deleted successfully.")
+        return redirect('home') 
+
+    return redirect('manage_account')
