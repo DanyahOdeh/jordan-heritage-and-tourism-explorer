@@ -1,4 +1,9 @@
-# Jordan Heritage & Tourism Explorer
+# Jordan Heritage & Tourism Explorer 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/38adc9be-8033-4875-bea0-b0d894ba951c" alt="logo" width="400" height="400">
+</p>
+
+
 
 
 ## Project Overview : 
@@ -42,9 +47,9 @@ Through the platform, users can:
 ## ERD Diagram : 
 
 
-![ERDDD](https://github.com/user-attachments/assets/e8b7629a-1cbb-438b-b640-290132109e82)
-
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e8b7629a-1cbb-438b-b640-290132109e82" alt="ERDDD">
+</p>
 
 
 ## Installation Guide : 
@@ -163,3 +168,12 @@ The following table summarizes specific challenges, solutions, and key learnings
 | Users couldn’t edit or delete their own submissions or reviews                                                 | Added secure CRUD views and templates with ownership checks                                                                                                                                                                                                                                                                                                                                                                               | Gained experience in permission handling and secure user interactions                                                                     |
 
 
+
+
+
+### DONE BY: Route962 Team
+### Team Members: ### 
+Amnah Almnaseer,
+Bayan Batainah,
+Danyah Odeh, and
+Joud Al-hyasat
