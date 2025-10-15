@@ -61,14 +61,22 @@
             {% if not user_has_reviewed %}
               <form method="post" action="{% url 'add_review' destination.pk %}" class="styled-review-form">
                 {% csrf_token %}
+
                 <div class="form-group">
-                  <label for="id_rating">Your Rating (1–5 Stars):</label>
-                  {{ review_form.rating }}
+                  <label for="id_rating">Your Rating:</label>
+                    <div class="star-rating">
+                      {% for i in "54321"|make_list %}
+                      <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}">
+                      <label for="star{{ i }}" title="{{ i }} stars"><i class="fa-solid fa-star"></i></label>
+                      {% endfor %}
+                    </div>
                 </div>
+
                 <div class="form-group">
                   <label for="id_comment">Comment:</label>
                   {{ review_form.comment }}
                 </div>
+                
                 <button type="submit" class="submit-btn">Submit Review</button>
               </form>
             {% else %}

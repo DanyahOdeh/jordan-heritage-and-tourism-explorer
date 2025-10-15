@@ -252,7 +252,7 @@
 .destination-form input[type="file"],
 .destination-form textarea,
 .destination-form select {
-  width: 100%;
+  width: 95%;
   padding: 12px 14px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -572,13 +572,24 @@
 }
 
 .delete-review-link {
-  background: none;
+  background-color: #e74c3c;
   border: none;
-  color: #e74c3c;
-  text-decoration: underline;
-  cursor: pointer;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 20px;
   font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(231, 76, 60, 0.3);
 }
+
+.delete-review-link:hover {
+  background-color: #c0392b;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+  transform: translateY(-1px);
+}
+
 
 .review-message {
   color: #666;
@@ -623,24 +634,41 @@
   margin-top: 6px;
 }
 
+/* Refined Textarea Alignment */
+.styled-review-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.styled-review-form .form-group {
+  width: 90%;
+  max-width: 600px;
+  text-align: left;
+}
+
 .styled-review-form textarea {
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
-  font-family: inherit;
+  min-height: 120px;
+  border: 1.5px solid #ddd;
+  border-radius: 12px;
+  padding: 12px 15px;
   font-size: 1rem;
-  resize: vertical;
-  background-color: #f9f9f9;
+  line-height: 1.6;
+  background-color: #fafafa;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .styled-review-form textarea:focus {
   border-color: #e67e22;
   background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+  box-shadow: 0 0 6px rgba(230, 126, 34, 0.3);
   outline: none;
 }
+
 
 /* Existing Reviews Card */
 .existing-reviews-card .review-item {
@@ -682,6 +710,155 @@
   margin-top: 10px;
 }
 
+/* --- EDIT PAGE CANCEL BUTTON ONLY --- */
+.add-destination-section .form-container .back-btn {
+  display: inline-block;
+  background-color: #e74c3c;
+  color: #fff;
+  border-radius: 25px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 15px;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.35);
+  transition: all 0.3s ease;
+}
+
+.add-destination-section .form-container .back-btn:hover {
+  background-color: #c0392b;
+  box-shadow: 0 6px 16px rgba(231, 76, 60, 0.45);
+  transform: translateY(-1px);
+}
+
+/* --- DELETE CONFIRMATION PAGE BUTTONS --- */
+.delete-confirmation form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;               /* spacing between buttons */
+  margin-top: 30px;
+  flex-wrap: wrap;         /* allows stacking on mobile */
+}
+
+/* Red delete button (already styled similarly elsewhere) */
+.delete-confirmation .delete-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 36px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.35);
+  transition: all 0.3s ease;
+}
+
+.delete-confirmation .delete-btn:hover {
+  background-color: #c0392b;
+  box-shadow: 0 6px 16px rgba(231, 76, 60, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Green cancel (No, Keep It) button */
+.delete-confirmation .cancel-btn {
+  display: inline-block;
+  background-color: #27ae60;
+  color: #fff;
+  border-radius: 30px;
+  padding: 14px 36px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.35);
+  transition: all 0.3s ease;
+}
+
+.delete-confirmation .cancel-btn:hover {
+  background-color: #1e8449;
+  box-shadow: 0 6px 16px rgba(39, 174, 96, 0.45);
+  transform: translateY(-1px);
+}
+
+
+.delete-confirmation .delete-btn,
+.delete-confirmation .cancel-btn {
+  width: 100%;
+}
+
+/* --- STAR RATING STYLING --- */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 6px;
+  margin: 12px 0 20px;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 1.8rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #f1c40f;
+  transform: scale(1.1);
+}
+
+.star-rating input:checked ~ label {
+  color: #e67e22;
+}
+
+/* --- COMMENT BOX STYLING --- */
+.styled-review-form textarea {
+  width: 100%;
+  min-height: 120px;
+  border: 1.5px solid #ddd;
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.styled-review-form textarea:focus {
+  border-color: #e67e22;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(230, 126, 34, 0.3);
+  outline: none;
+}
+
+/* --- SUBMIT BUTTON REFINEMENT --- */
+.submit-btn {
+  background-color: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 36px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+}
+
+.submit-btn:hover {
+  background-color: #cf6f18;
+  box-shadow: 0 6px 18px rgba(230, 126, 34, 0.5);
+  transform: translateY(-2px);
+}
+
 
 
 /* RESPONSIVENESS */
@@ -691,6 +868,13 @@
   .form-container { max-width: 600px; padding: 35px 30px; }
 }
 
+/* Mobile: stack vertically */
+@media (max-width: 576px) {
+  .delete-confirmation form {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
 
 @media (max-width: 992px) {
   .destination-content {

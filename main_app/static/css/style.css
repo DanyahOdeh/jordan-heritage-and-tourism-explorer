@@ -1,97 +1,282 @@
+/* ---------------------------
+   MANAGE ACCOUNT PAGE - REFINED STYLING
+---------------------------- */
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4; 
-    margin: 0;
-    padding: 0;
+  font-family: "Cairo", sans-serif;
+  background-color: #faf8f6;
+  margin: 0;
+  padding: 0;
 }
 
-.manage-account-container {
-    max-width: 800px;
-    margin: 40px auto; 
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+/* Outer Container */
+.container {
+  max-width: 850px;
+  margin: 60px auto;
+  padding: 0 20px;
 }
 
-h1 {
-    font-size: 30px;
-    color: #333;
-    text-align: center;
-    margin-bottom: 25px;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
+/* Page Title */
+h2 {
+  text-align: center;
+  color: #e67e22;
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin-bottom: 40px;
 }
 
-.form-group {
-    margin-bottom: 20px;
+/* Card Styling */
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 40px 45px;
+  margin-bottom: 35px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Card Headers */
+.card-title {
+  color: #333;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  border-left: 5px solid #e67e22;
+  padding-left: 12px;
+}
+
+/* Form Layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 label {
-    display: block;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 8px;
-    font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
+  display: block;
 }
 
+/* Input Fields */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  font-size: 15px;
+  transition: all 0.3s ease;
 }
 
 input:focus {
-    border-color: #d99a4c; 
-    outline: none;
-    box-shadow: 0 0 5px rgba(217, 154, 76, 0.4);
+  border-color: #e67e22;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+  outline: none;
 }
 
-.btn-primary {
-    display: inline-block;
-    padding: 10px 25px;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #d99a4c; 
-    color: white;
-    transition: background-color 0.3s;
-    width: auto;
+/* Center Buttons */
+form button,
+.custom-btn,
+.btn-primary,
+.btn-warning,
+.btn-danger {
+  align-self: center;
+  display: inline-block;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 250px;
+  text-align: center;
 }
 
-.btn-primary:hover {
-    background-color: #b58241; 
+/* Primary (Orange) Button */
+.btn-primary,
+.custom-btn {
+  background-color: #e67e22;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(230, 126, 34, 0.3);
+}
+.btn-primary:hover,
+.custom-btn:hover {
+  background-color: #cf6f18;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(230, 126, 34, 0.45);
 }
 
-.center-button {
-    text-align: center;
-    padding-top: 15px;
+/* Secondary (Yellow-Gold) */
+.btn-warning {
+  background-color: #f5b041;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(245, 176, 65, 0.3);
+}
+.btn-warning:hover {
+  background-color: #d68910;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 176, 65, 0.4);
 }
 
+/* Danger Zone (Red) */
+.btn-danger {
+  background-color: #e74c3c;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(231, 76, 60, 0.3);
+}
+.btn-danger:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(231, 76, 60, 0.4);
+}
+
+/* Danger Zone Card Special */
+.border-danger {
+  border-top: 5px solid #e74c3c !important;
+  background-color: #fff5f5;
+}
+
+.text-danger {
+  color: #e74c3c !important;
+}
+
+/* Password Requirements */
+.form-text,
 .password-requirements {
-    list-style-type: disc;
-    padding-left: 25px;
-    margin: 15px 0 25px 0;
-    color: #777;
-    font-size: 13px;
-    line-height: 1.8;
+  color: #777;
+  font-size: 0.9rem;
+  margin-top: -6px;
+  line-height: 1.6;
+}
+
+/* Center Buttons and Sections */
+button[type="submit"] {
+  margin-top: 10px;
+}
+
+/* Subtle Section Separation */
+.card + .card {
+  margin-top: 40px;
+}
+
+/* ===== Manage Account (scoped) ===== */
+.manage-account .card { text-align: left; }
+.manage-account h2 { text-align: center; }
+
+.manage-account form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: stretch; /* inputs span full width */
+}
+
+.manage-account label,
+.manage-account .form-label {
+  text-align: left;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.manage-account input[type="text"],
+.manage-account input[type="email"],
+.manage-account input[type="password"] {
+  width: 100%;
+}
+
+/* Center ONLY the action buttons inside this page */
+.manage-account form .btn,
+.manage-account form .btn-primary,
+.manage-account form .btn-warning,
+.manage-account form .btn-danger,
+.manage-account .custom-btn,
+.manage-account .custom-btn-secondary,
+.manage-account .custom-btn-delete {
+  align-self: center;
+  min-width: 250px;
+}
+
+/* ===== Navbar button fix (undo global impact) ===== */
+.navbar-container .btn-auth,
+.navbar-container .logout-button {
+  min-width: unset !important;
+  padding: 10px 18px !important;
+  border-radius: 25px !important;
+  font-size: 0.95rem !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* --- PASSWORD TOGGLE FOR MANAGE ACCOUNT --- */
+.input-group-manage {
+  position: relative;
+}
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input[type="password"],
+.password-field input[type="text"] {
+  padding-right: 40px !important; /* space for eye icon */
+}
+
+.password-field .password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.password-field .password-toggle:hover {
+  color: #e67e22;
 }
 
 
-footer {
-    text-align: center;
-    padding: 20px;
-    color: #999;
-    font-size: 14px;
-    background-color: #333; 
-    color: #fff;
-    margin-top: 40px;
+
+
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .card {
+    padding: 30px 25px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  input,
+  button {
+    font-size: 0.95rem;
+  }
+
+  button {
+    width: 100%;
+  }
 }

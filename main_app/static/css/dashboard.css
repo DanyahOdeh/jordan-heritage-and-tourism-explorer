@@ -275,11 +275,33 @@
     color: var(--primary-color);
 }
 
+/* --- CENTER WELCOME + BUTTON --- */
 .welcome-message {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
+  display: flex;
+  flex-direction: column;   /* stack text and button vertically */
+  align-items: center;      /* center horizontally */
+  justify-content: center;
+  gap: 10px;                /* space between text and button */
+  text-align: center;
 }
+
+.manage-account-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: none;
+  padding: 8px 18px;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.manage-account-link:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 
 .manage-account-link {
     font-size: 0.9rem; 
